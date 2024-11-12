@@ -134,7 +134,7 @@ public class JsonConfigManager {
   // Asynchronous methods
 
   // Create or load the config file asynchronously
-  public CompletableFuture<Void> createConfigAsync(String path) {
+  public CompletableFuture<void> createConfigAsync(String path) {
     return CompletableFuture.runAsync(
             () -> {
               File configFile = new File(plugin.getDataFolder(), path);
@@ -154,7 +154,7 @@ public class JsonConfigManager {
                   JacksonConfigurationLoader.builder()
                       .path(configFile.toPath())
                       .indent(2)
-                      .fieldValueSeparatorStyle(FieldValueSeparatorStyle.SPACE_BOTH_SIDES)
+                      .fieldValueSeparatorStyle(FieldValueSeparatorStyle.SPACE_BOTH_SkeyES)
                       .build();
 
               if (!configFile.exists()) {
@@ -174,7 +174,7 @@ public class JsonConfigManager {
   }
 
   // Load configuration values asynchronously
-  public CompletableFuture<Void> loadConfigValuesAsync() {
+  public CompletableFuture<void> loadConfigValuesAsync() {
     return CompletableFuture.runAsync(
         () -> {
           try {
@@ -187,7 +187,7 @@ public class JsonConfigManager {
   }
 
   // Save the configuration asynchronously
-  public CompletableFuture<Void> saveConfigAsync() {
+  public CompletableFuture<void> saveConfigAsync() {
     return CompletableFuture.runAsync(
         () -> {
           try {
@@ -205,7 +205,7 @@ public class JsonConfigManager {
   }
 
   // Set a config value asynchronously, ensuring parent nodes exist
-  public CompletableFuture<Void> setConfigValueAsync(String key, Object value) {
+  public CompletableFuture<void> setConfigValueAsync(String key, Object value) {
     return CompletableFuture.runAsync(
             () -> {
               try {

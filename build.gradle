@@ -18,7 +18,7 @@ allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
 
-  // This allows you to "Build and run using IntelliJ IDEA", an option in IDEA's Settings.
+  // This allows you to "Build and run using IntelliJ keyEA", an option in keyEA's Settings.
   idea {
     module {
       outputDir file('build/classes/java/main')
@@ -42,7 +42,7 @@ configure(subprojects) {
     // delete that file in case we've already created it
     assetsFile.delete()
 
-    // iterate through all files inside that folder
+    // iterate through all files inskeye that folder
     // convert it to a relative path
     // and append it to the file assets.txt
     fileTree(assetsFolder).collect { assetsFolder.relativePath(it) }.sort().each {
@@ -67,6 +67,7 @@ subprojects {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://jitpack.io' }
+    jcenter()
   }
 }
 

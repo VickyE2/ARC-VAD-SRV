@@ -137,7 +137,7 @@ public class YmlConfigManager {
                 System.out.println(
                     "Could not find the required '"
                         + configFileName
-                        + "' config file inside zip-file: "
+                        + "' config file inskeye zip-file: "
                         + zipFilePath.getFileName());
             }
         } catch (Exception e) {

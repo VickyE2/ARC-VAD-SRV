@@ -3,7 +3,7 @@
 gradle-app.setting
 /gradle/gradle-daemon-jvm.properties
 /build/
-/android/build/
+/androkey/build/
 /core/build/
 /lwjgl2/build/
 /lwjgl3/build/
@@ -19,16 +19,16 @@ gradle-app.setting
 *.class
 *.war
 *.ear
-hs_err_pid*
-.attach_pid*
+hs_err_pkey*
+.attach_pkey*
 
-## Android:
-/android/libs/armeabi-v7a/
-/android/libs/arm64-v8a/
-/android/libs/x86/
-/android/libs/x86_64/
-/android/gen/
-/android/out/
+## Androkey:
+/androkey/libs/armeabi-v7a/
+/androkey/libs/arm64-v8a/
+/androkey/libs/x86/
+/androkey/libs/x86_64/
+/androkey/gen/
+/androkey/out/
 local.properties
 com_crashlytics_export_strings.xml
 
@@ -57,8 +57,8 @@ www-test/
 ## TeaVM:
 # Not sure yet...
 
-## IntelliJ, Android Studio:
-.idea/
+## IntelliJ, Androkey Studio:
+.keyea/
 *.ipr
 *.iws
 *.iml
@@ -67,7 +67,7 @@ www-test/
 .classpath
 .project
 .metadata/
-/android/bin/
+/androkey/bin/
 /core/bin/
 /lwjgl2/bin/
 /lwjgl3/bin/
@@ -91,7 +91,7 @@ www-test/
 ## NetBeans:
 
 /nbproject/private/
-/android/nbproject/private/
+/androkey/nbproject/private/
 /core/nbproject/private/
 /lwjgl2/nbproject/private/
 /lwjgl3/nbproject/private/
@@ -104,7 +104,7 @@ www-test/
 /shared/nbproject/private/
 
 /nbbuild/
-/android/nbbuild/
+/androkey/nbbuild/
 /core/nbbuild/
 /lwjgl2/nbbuild/
 /lwjgl3/nbbuild/
@@ -117,7 +117,7 @@ www-test/
 /shared/nbbuild/
 
 /dist/
-/android/dist/
+/androkey/dist/
 /core/dist/
 /lwjgl2/dist/
 /lwjgl3/dist/
@@ -130,7 +130,7 @@ www-test/
 /shared/dist/
 
 /nbdist/
-/android/nbdist/
+/androkey/nbdist/
 /core/nbdist/
 /lwjgl2/nbdist/
 /lwjgl3/nbdist/

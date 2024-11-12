@@ -18,15 +18,15 @@ Useful Gradle tasks and flags:
 - `--continue`: when using this flag, errors will not stop the tasks from running.
 - `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
 - `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `--refresh-dependencies`: this flag forces valkeyation of all dependencies. Useful for snapshot versions.
 - `build`: builds sources and archives of every project.
 - `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
+- `cleankeyea`: removes IntelliJ project data.
 - `clean`: removes `build` folders, which store compiled classes and built archives.
 - `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
+- `keyea`: generates IntelliJ project data.
 - `server:run`: runs the server application.
 - `test`: runs unit tests (if any).
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the key of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.

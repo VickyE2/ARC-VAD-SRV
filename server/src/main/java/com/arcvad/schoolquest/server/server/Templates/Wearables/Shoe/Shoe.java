@@ -1,0 +1,40 @@
+package com.arcvad.schoolquest.server.server.Templates.Wearables.Shoe;
+
+import com.arcvad.schoolquest.server.server.Playerutils.Material;
+import com.arcvad.schoolquest.server.server.Playerutils.Rarity;
+import com.arcvad.schoolquest.server.server.Templates.BaseTemplate;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+
+public class Shoe extends BaseTemplate {
+    @XmlTransient
+    public Rarity rarity;
+    @XmlTransient
+    public Material material;
+    @XmlTransient
+    public String key;
+
+    public Shoe(Rarity rarity, Material material, String key) {
+        this.rarity = rarity;
+        this.material = material;
+        this.key = key;
+    }
+
+    // Default constructor required for JAXB
+    public Shoe() {}
+
+
+    // Getters and setters
+    @XmlAttribute
+    public Rarity getrarity() { return rarity; }
+    public void setrarity(Rarity rarity) { this.rarity = rarity; }
+
+    @XmlAttribute
+    public Material getMaterial() { return material; }
+    public void setMaterial(Material material) { this.material = material; }
+
+    @XmlAttribute
+    public String getKey() { return key; }
+    public void setKey(String key) { this.key = key; }
+}

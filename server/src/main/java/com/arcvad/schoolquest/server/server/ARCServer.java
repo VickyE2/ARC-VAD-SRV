@@ -1,16 +1,25 @@
 package com.arcvad.schoolquest.server.server;
 
 import com.arcvad.schoolquest.server.server.Managers.XmlConfigManager;
+import com.arcvad.schoolquest.server.server.Playerutils.Genders;
+import com.arcvad.schoolquest.server.server.Templates.Entities.Player;
+import com.arcvad.schoolquest.server.server.Templates.Entities.PlayerRegistrar;
+import com.arcvad.schoolquest.server.server.Templates.Entities.User;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Accessory.Accessory;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.BottomCloth.BottomCloth;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Shoe.Shoe;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Shoe.Shoes;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.TopCloth.TopCloth;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import org.spongepowered.configurate.AttributedConfigurationNode;
 
+import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +47,7 @@ public class ARCServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket conn, String message) {
         System.out.println("Received request: " + message + " from client: " + conn);
-        if (message.startsWith("Dad what's up?")){
+        if (message.startsWith("Dad what's up?")) {
             conn.send("Im all good :]");
         }
         if (message.contains("requestUser")) {
@@ -47,116 +56,209 @@ public class ARCServer extends WebSocketServer {
             String player = "";
             String password = "";
 
-            String currentDir = System.getProperty("user.dir");
-            String regex = "requestUser\\{([^}]+)}\\{([^}]+)}";
+            String currentDir = null;
+            try {
+                currentDir = new File(ARCServer.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            String regex = "requestUser->\\{([^}]+)}\\{([^}]+)}";
 
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(message);
 
-            if (matcher.find()){
+            if (matcher.find()) {
                 player = matcher.group(1);
                 password = matcher.group(2);
-            }
 
-            // Load user attributes from registered_users.xml
-            Path userFilePath = Paths.get(currentDir, "Clients/Users/registered_users.xml");
-            XmlConfigManager xmlConfigManager = new XmlConfigManager();
-            xmlConfigManager.createDefaultUser("test1", "onlyifyouknewwhatitwas009!&");
-            xmlConfigManager.createConfig(userFilePath.toString());
+                try {
+                    XmlConfigManager manager = new XmlConfigManager(PlayerRegistrar.class);
+                    Map<String, Object> combinedAttributes = new HashMap();
+                    List<User> users = manager.loadFromXML("./ServerData/registeredUsers.xml", PlayerRegistrar.class).getUsers();
 
-            String userPath = "users.user";
-            Map<String, Object> combinedAttributes = new HashMap<>(); // Use Object to allow lists as values
+                    for (User user : users) {
+                        if (user.getEmail().equals(player)) {
+                            if (user.getPassword().equals(password)) {
+                                Player registeredPlayer = manager.loadFromXML("./ServerData/Users/" + player + ".xml", Player.class);
+                                combinedAttributes.put("username", user.getUsername());
+                                combinedAttributes.put("password", user.getPassword());
+                                combinedAttributes.put("email", user.getEmail());
+                                combinedAttributes.put("firstname", user.getFirstname());
+                                combinedAttributes.put("lastname", user.getLastname());
+                                combinedAttributes.put("gender", user.getGender());
 
-            if (xmlConfigManager.doesPathExist(userPath)) {
-                Map<String, String> userAttributes = xmlConfigManager.getAttributes(userPath);
+                                combinedAttributes.put("eyeLashStyle", registeredPlayer.getEyeLashDesign());
+                                combinedAttributes.put("eyeLashColor", registeredPlayer.getEyelashColor());
+                                combinedAttributes.put("hairStyle", registeredPlayer.getHairType());
+                                combinedAttributes.put("hairColor", registeredPlayer.getHairHue());
+                                combinedAttributes.put("eyeColor", registeredPlayer.getIrisHue());
+                                combinedAttributes.put("skinColor", registeredPlayer.getSkinHue());
+                                combinedAttributes.put("topCloth", registeredPlayer.getFirstLayerCloth());
+                                combinedAttributes.put("bottomCloth", registeredPlayer.getSecondLayerCloth());
+                                combinedAttributes.put("shoe", registeredPlayer.getFootwear());
 
-                // Verify that the username matches
-                if (userAttributes != null && userAttributes.get("username").equals(player)) {
-                    if (userAttributes.get("password").equals(password)) {
-                        combinedAttributes.putAll(userAttributes); // Add user attributes
+                                List<TopCloth> ownedTopClothes = new ArrayList<>(registeredPlayer.getCollectedUpperWear());
+                                List<BottomCloth> ownedBottomClothes = new ArrayList<>(registeredPlayer.getCollectedLowerWear());
+                                List<Shoe> ownedShoes = new ArrayList<>(registeredPlayer.getCollectedFootwear());
+                                List<Accessory> ownedAccessories = new ArrayList<>(registeredPlayer.getCollectedAdornments());
+                                List<Accessory> wornAccessories = new ArrayList<>(registeredPlayer.getAdornments());
 
-                        // Load player-specific data from player_name/data.xml
-                        Path playerDataPath = Paths.get(currentDir, "Clients/Users/" + player + "/data.xml");
-                        XmlConfigManager playerDataConfig = new XmlConfigManager();
-                        playerDataConfig.createConfig(playerDataPath.toString());
+                                combinedAttributes.put("ownedTopClothes", ownedTopClothes);
+                                combinedAttributes.put("ownedBottomClothes", ownedBottomClothes);
+                                combinedAttributes.put("ownedShoes", ownedShoes);
+                                combinedAttributes.put("ownedAccessory", ownedAccessories);
+                                combinedAttributes.put("accessories", wornAccessories);
 
-                        String playerDataPathString = "playerData"; // Assume root node in data.xml is <playerData>
-                        if (playerDataConfig.doesPathExist(playerDataPathString)) {
-                            combinedAttributes.put("eyeLashStyle", playerDataConfig.getConfigValue("playerData.eyeLashStyle"));
-                            combinedAttributes.put("eyeLashColor", playerDataConfig.getConfigValue("playerData.eyeLashColor"));
-                            combinedAttributes.put("hairStyle", playerDataConfig.getConfigValue("playerData.hairStyle"));
-                            combinedAttributes.put("hairColor", playerDataConfig.getConfigValue("playerData.hairColor"));
-                            combinedAttributes.put("eyeColor", playerDataConfig.getConfigValue("playerData.eyeColor"));
-                            combinedAttributes.put("skinColor", playerDataConfig.getConfigValue("playerData.skinColor"));
-                            combinedAttributes.put("topCloth", playerDataConfig.getConfigValue("playerData.topCloth"));
-                            combinedAttributes.put("bottomCloth", playerDataConfig.getConfigValue("playerData.bottomCloth"));
-                            combinedAttributes.put("shoe", playerDataConfig.getConfigValue("playerData.shoe"));
+                                ObjectMapper mapper = new ObjectMapper();
 
-
-                            List<Map<String, String>> topClothesList = new ArrayList<>();
-                            List<Map<String, String>> bottomClothesList = new ArrayList<>();
-                            List<Map<String, String>> shoesList = new ArrayList<>();
-                            List<Map<String, String>> accessoryList = new ArrayList<>();
-
-                            List<AttributedConfigurationNode> topPlayerClothes = playerDataConfig.getChildNodes(playerDataPathString + ".ownedItems.topClothes");
-                            List<AttributedConfigurationNode> bottomPlayerClothes = playerDataConfig.getChildNodes(playerDataPathString + ".ownedItems.bottomClothes");
-                            List<AttributedConfigurationNode> playerShoes = playerDataConfig.getChildNodes(playerDataPathString + ".ownedItems.shoes");
-                            List<AttributedConfigurationNode> playerAccessories = playerDataConfig.getChildNodes(playerDataPathString + ".ownedItems.accessories");
-
-                            // Collect top clothes attributes
-                            for (AttributedConfigurationNode clothNode : topPlayerClothes) {
-                                Map<String, String> clothAttributes = new HashMap<>();
-                                clothAttributes.put("name", clothNode.attribute("name"));
-                                clothAttributes.put("id", clothNode.attribute("id"));
-                                topClothesList.add(clothAttributes);
+                                try {
+                                    String jsonString = mapper.writeValueAsString(combinedAttributes);
+                                    conn.send("playerDataResponse: " + jsonString);
+                                    System.out.println("PARSED PLAYER-JSON: ||->  " + jsonString + "  <-|| for player: " + player);
+                                } catch (JsonProcessingException e) {
+                                    System.out.println("Error creating data response: " + e.getCause());
+                                    conn.send("playerDataResponse: null");
+                                }
+                            } else {
+                                System.out.println("Wrong Password...");
                             }
-                            combinedAttributes.put("topClothes", topClothesList);
-
-                            // Collect bottom clothes attributes
-                            for (AttributedConfigurationNode clothNode : bottomPlayerClothes) {
-                                Map<String, String> clothAttributes = new HashMap<>();
-                                clothAttributes.put("name", clothNode.attribute("name"));
-                                clothAttributes.put("id", clothNode.attribute("id"));
-                                bottomClothesList.add(clothAttributes);
-                            }
-                            combinedAttributes.put("bottomClothes", bottomClothesList);
-
-                            // Collect shoes attributes
-                            for (AttributedConfigurationNode shoeNode : playerShoes) {
-                                Map<String, String> shoeAttributes = new HashMap<>();
-                                shoeAttributes.put("name", shoeNode.attribute("name"));
-                                shoeAttributes.put("id", shoeNode.attribute("id"));
-                                shoesList.add(shoeAttributes);
-                            }
-                            combinedAttributes.put("shoes", shoesList);
-
-                            for (AttributedConfigurationNode accessoryNode : playerAccessories) {
-                                Map<String, String> accessoryAttributes = new HashMap<>();
-                                accessoryAttributes.put("name", accessoryNode.attribute("name"));
-                                accessoryAttributes.put("id", accessoryNode.attribute("id"));
-                                accessoryList.add(accessoryAttributes);
-                            }
-                            combinedAttributes.put("accessories", accessoryList);
+                        } else {
+                            conn.send("err");
+                            System.out.println("Username " + player + " not found in registered_users.xml");
                         }
-
-                        // Convert combined attributes to JSON and send
-                        ObjectMapper mapper = new ObjectMapper();
-                        try {
-                            String jsonString = mapper.writeValueAsString(combinedAttributes);
-                            conn.send("playerDataResponse: " + jsonString);
-                            System.out.println("PARSED PLAYER-JSON: ||->  " + jsonString + "  <-|| for player: " + player);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }else {
-                        System.out.println("Wrong Password...");
                     }
-                } else {
-                    conn.send("err");
-                    System.out.println("Username " + player + " not found in registered_users.xml");
+
+                } catch (JAXBException e) {
+                    throw new RuntimeException(e);
                 }
+                //how to convert string to boolean
+            } else {
+                System.out.println("Failed to match pattern in message: " + message);
             }
-        } else if (message.equals("ping")){
+        } else if (message.startsWith("registerUser->")) {
+            String username = "";
+            String password = "";
+            String email = "";
+            String firstname = "";
+            String lastname = "";
+            Genders gender = null;
+            Map<String, Object> combinedAttributes = new HashMap();
+
+            String regex = "registerUser->\\{([^}]+)}\\{([^}]+)}\\{([^}]+)}\\{([^}]+)}\\{([^}]+)}\\{([^}]+)}";
+
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(message);
+
+            if (matcher.find()) {
+                username = matcher.group(1);
+                password = matcher.group(2);
+                email = matcher.group(3);
+                firstname = matcher.group(4);
+                lastname = matcher.group(5);
+                gender = Genders.valueOf(matcher.group(6));
+
+                try {
+                    XmlConfigManager manager = new XmlConfigManager(Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Shoe.class, Accessory.class);
+                    List<User> users = manager.loadFromXML("./ServerData/registeredUsers.xml", PlayerRegistrar.class).getUsers();
+
+                    // Check if username or email already exists
+                    boolean usernameExists = false;
+                    boolean emailExists = false;
+
+                    for (User mainUser : users) {
+                        if (mainUser.getUsername().equals(username)) {
+                            usernameExists = true;
+                            break;  // Exit loop once username is found
+                        }
+                        if (mainUser.getEmail().equals(email)) {
+                            emailExists = true;
+                            break;  // Exit loop once email is found
+                        }
+                    }
+
+                    if (usernameExists) {
+                        conn.send("createdP:false:Username already exists");
+                    } else if (emailExists) {
+                        conn.send("createdP:false:Email already exists");
+                    } else {
+                        // Proceed to create new user
+                        boolean playerCreated = manager.createUser(username, password, email, firstname, lastname, gender);
+                        if (playerCreated) {
+                            try {
+                                Thread.sleep(500);
+                                // Reload user data after creation
+                                List<User> savedUsers = manager.loadFromXML("./ServerData/registeredUsers.xml", PlayerRegistrar.class).getUsers();
+                                boolean foundUser = false;
+
+                                for (User user : savedUsers) {
+                                    if (user.getUsername().equals(username)) {
+                                        Player registeredPlayer = manager.loadFromXML("./ServerData/Users/" + username + ".xml", Player.class);
+
+                                        // Combine user and player attributes
+                                        combinedAttributes.put("username", user.getUsername());
+                                        combinedAttributes.put("password", user.getPassword());
+                                        combinedAttributes.put("email", user.getEmail());
+                                        combinedAttributes.put("firstname", user.getFirstname());
+                                        combinedAttributes.put("lastname", user.getLastname());
+                                        combinedAttributes.put("gender", user.getGender());
+
+                                        // Add player attributes
+                                        combinedAttributes.put("eyeLashStyle", registeredPlayer.getEyeLashDesign());
+                                        combinedAttributes.put("eyeLashColor", registeredPlayer.getEyelashColor());
+                                        combinedAttributes.put("hairStyle", registeredPlayer.getHairType());
+                                        combinedAttributes.put("hairColor", registeredPlayer.getHairHue());
+                                        combinedAttributes.put("eyeColor", registeredPlayer.getIrisHue());
+                                        combinedAttributes.put("skinColor", registeredPlayer.getSkinHue());
+                                        combinedAttributes.put("topCloth", registeredPlayer.getFirstLayerCloth());
+                                        combinedAttributes.put("bottomCloth", registeredPlayer.getSecondLayerCloth());
+                                        combinedAttributes.put("shoe", registeredPlayer.getFootwear());
+
+                                        // Owned items
+                                        List<TopCloth> ownedTopClothes = new ArrayList<>(registeredPlayer.getCollectedUpperWear());
+                                        List<BottomCloth> ownedBottomClothes = new ArrayList<>(registeredPlayer.getCollectedLowerWear());
+                                        List<Shoe> ownedShoes = new ArrayList<>(registeredPlayer.getCollectedFootwear());
+                                        List<Accessory> ownedAccessories = new ArrayList<>(registeredPlayer.getCollectedAdornments());
+                                        List<Accessory> wornAccessories = new ArrayList<>(registeredPlayer.getAdornments());
+
+                                        combinedAttributes.put("ownedTopClothes", ownedTopClothes);
+                                        combinedAttributes.put("ownedBottomClothes", ownedBottomClothes);
+                                        combinedAttributes.put("ownedShoes", ownedShoes);
+                                        combinedAttributes.put("ownedAccessory", ownedAccessories);
+                                        combinedAttributes.put("accessories", wornAccessories);
+
+                                        // Convert to JSON and send back
+                                        ObjectMapper mapper = new ObjectMapper();
+                                        try {
+                                            String jsonString = mapper.writeValueAsString(combinedAttributes);
+                                            conn.send("playerDataResponse: " + jsonString);
+                                            conn.send("createdP:true:User registered successfully");
+                                            System.out.println("PARSED PLAYER-JSON: ||->  " + jsonString + "  <-|| for player: " + username);
+                                        } catch (JsonProcessingException e) {
+                                            System.out.println("Error creating data response: " + e.getCause() + " " + e.getMessage());
+                                            conn.send("createdP:false:JsonProcessingException on server end");
+                                        }
+                                        foundUser = true;
+                                        break;
+                                    }
+                                }
+                                if (!foundUser) {
+                                    System.out.println("Username " + username + " not found in registered_users.xml");
+                                    conn.send("createdP:false:Exception gotten from server end");
+                                }
+                            } catch (JAXBException | InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            conn.send("createdP:false:Server failed to create player...Please try again later. If issue persists report this to a server admin");
+                        }
+                    }
+                } catch (JAXBException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+        } else if (message.equals("ping")) {
             conn.send("PING");
         }
     }
@@ -171,13 +273,15 @@ public class ARCServer extends WebSocketServer {
 
     }
 
-    public static void main(String[] args) {
-        XmlConfigManager xmlConfigManager = new XmlConfigManager();
-        xmlConfigManager.createDefaultUser("test1", "onlyifyouknewwhatitwas009!&");
 
-        int port = 55489; // Choose any port you like
+    public static void main(String[] args) throws JAXBException {
+        XmlConfigManager xmlConfigManager = new XmlConfigManager(Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Accessory.class);
+        boolean isCreated = xmlConfigManager.createUser("test1", "onlyifyouknewwhatitwas009!&", "testuser@test.com", "Robo", "Logic", Genders.MALE);
+
+        int port = 55489;
         ARCServer server = new ARCServer(new InetSocketAddress(port));
         server.start();
         System.out.println("Server started on port: " + port + " with ip: " + server.getAddress());
+        System.out.println("default user created? " + isCreated);
     }
 }

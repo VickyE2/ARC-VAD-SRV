@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-keyentifier: Apache-2.0
 #
 
 ##############################################################################
@@ -41,7 +41,7 @@
 #
 #   Important for patching:
 #
-#   (2) This script targets any POSIX shell, so it avoids extensions provided
+#   (2) This script targets any POSIX shell, so it avoids extensions provkeyed
 #       by Bash, Ksh, etc; in particular arrays are avoided.
 #
 #       The "traditional" practice of packing multiple parameters into a
@@ -127,7 +127,7 @@ if [ -n "$JAVA_HOME" ] ; then
         JAVACMD=$JAVA_HOME/bin/java
     fi
     if [ ! -x "$JAVACMD" ] ; then
-        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+        die "ERROR: JAVA_HOME is set to an invalkey directory: $JAVA_HOME
 
 Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."

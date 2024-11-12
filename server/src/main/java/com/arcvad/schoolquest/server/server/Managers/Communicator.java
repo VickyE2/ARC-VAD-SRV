@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Communicator {
 
-    // Base message class with a type field to identify the type
+    // Base message class with a type field to keyentify the type
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
     @JsonSubTypes({
         @JsonSubTypes.Type(value = UserRegister.class, name = "UserRegister"),

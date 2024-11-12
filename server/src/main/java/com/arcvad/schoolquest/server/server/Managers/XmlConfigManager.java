@@ -1,509 +1,292 @@
 package com.arcvad.schoolquest.server.server.Managers;
 
-import org.spongepowered.configurate.AttributedConfigurationNode;
-import org.spongepowered.configurate.ConfigurationOptions;
-import org.spongepowered.configurate.loader.AtomicFiles;
-import org.spongepowered.configurate.loader.HeaderMode;
-import org.spongepowered.configurate.xml.XmlConfigurationLoader;
+import com.arcvad.schoolquest.server.server.GlobalUtils.EnumRandomizer;
+import com.arcvad.schoolquest.server.server.GlobalUtils.Mergeable;
+import com.arcvad.schoolquest.server.server.Playerutils.*;
+import com.arcvad.schoolquest.server.server.Templates.Attributes.Family;
+import com.arcvad.schoolquest.server.server.Templates.Attributes.PlayerFamily;
+import com.arcvad.schoolquest.server.server.Templates.BaseTemplate;
+import com.arcvad.schoolquest.server.server.Templates.Entities.*;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Accessory.Accessory;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.BottomCloth.BottomCloth;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.BottomCloth.BottomClothes;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Shoe.Shoe;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.Shoe.Shoes;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.TopCloth.TopCloth;
+import com.arcvad.schoolquest.server.server.Templates.Wearables.TopCloth.TopClothes;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XmlConfigManager {
+    private final JAXBContext jaxbContext;
+    private static final Logger logger = Logger.getLogger(XmlConfigManager.class.getName());
 
-    public XmlConfigurationLoader loader;
-    public AttributedConfigurationNode rootNode;
-    public ConfigurationOptions options;
 
-    public XmlConfigManager() {
+    @SafeVarargs
+    public XmlConfigManager(Class<? extends BaseTemplate>... classesToBeBound) throws JAXBException {
+        this.jaxbContext = JAXBContext.newInstance(classesToBeBound);
     }
 
-    // Create or load the config file
-    public void createConfig(String path) {
-        File configFile = new File(path);
+    // Save data, loading and merging if the file already exists
+    public void saveToXML(Object object, String filePath) throws JAXBException {
+        File file = new File(filePath);
 
-        // Ensure the parent directories for the file exist
-        File parentDir = configFile.getParentFile();
-        if (!parentDir.exists()) {
-            parentDir.mkdirs(); // Create all necessary parent directories
-        }
-
-        options =
-            XmlConfigurationLoader.builder().headerMode(HeaderMode.PRESET).indent(4).defaultOptions();
-
-        loader =
-            XmlConfigurationLoader.builder()
-                .writesExplicitType(false)
-                .path(configFile.toPath())
-                .indent(4)
-                .sink(AtomicFiles.atomicWriterFactory(configFile.toPath(), UTF_8))
-                .build();
-
-        if (!configFile.exists()) {
+        if (file.exists()) {
             try {
-                // Create the file if it does not exist
-                configFile.createNewFile();
-                Files.write(
-                    configFile.toPath(),
-                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?><config></config>"
-                        .getBytes(StandardCharsets.UTF_8));
-                System.out.println("Created new xml file: " + path);
-                loadConfigValues();
-            } catch (IOException e) {
-                System.out.println("Failed to create new xml file: " + e.getMessage());
+                // Load existing object
+                Object existingObject = loadFromXML(filePath, object.getClass());
+
+                // Check if the object implements Mergeable and merge if so
+                if (existingObject instanceof Mergeable) {
+                    ((Mergeable) existingObject).mergeWith(object);
+                    logger.info("Merged object into existing data for file: " + filePath);
+                    object = existingObject;  // Update reference to save the merged version
+                }
+            } catch (JAXBException e) {
+                logger.log(Level.WARNING, "Failed to load existing object for merging. Saving new object as is.", e);
             }
-        } else {
-            loadConfigValues();
-        }
-    }
-
-    public void createConfig(String path, String defualtKey) {
-        File configFile = new File(path);
-
-        // Ensure the parent directories for the file exist
-        File parentDir = configFile.getParentFile();
-        if (!parentDir.exists()) {
-            parentDir.mkdirs(); // Create all necessary parent directories
         }
 
-        options =
-            XmlConfigurationLoader.builder()
-                .headerMode(HeaderMode.PRESET)
-                .indent(4)
-                .defaultTagName(defualtKey)
-                .defaultOptions();
+        File parentDir = file.getParentFile();
+        parentDir.mkdirs();
 
-        loader =
-            XmlConfigurationLoader.builder()
-                .defaultTagName(defualtKey)
-                .writesExplicitType(false)
-                .path(configFile.toPath())
-                .indent(4)
-                .sink(AtomicFiles.atomicWriterFactory(configFile.toPath(), UTF_8))
-                .build();
-
-        if (!configFile.exists()) {
-            try {
-                // Create the file if it does not exist
-                configFile.createNewFile();
-                Files.write(
-                    configFile.toPath(),
-                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>".getBytes(StandardCharsets.UTF_8));
-                System.out.println("Created new xml file: " + path);
-                loadConfigValues();
-            } catch (IOException e) {
-                System.out.println("Failed to create new xml file: " + e.getMessage());
-            }
-        } else {
-            loadConfigValues();
-        }
+        // Save the (merged or new) object to XML
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(object, file);
+        logger.info("Object saved to XML at: " + filePath);
     }
 
-    public void loadConfig(String path, String file) {
-        File configFile = new File(path, file);
+    // Load XML into an object
+    public <T> T loadFromXML(String filePath, Class<T> clazz) throws JAXBException {
+        File file = new File(filePath);
 
-        options = XmlConfigurationLoader.builder().defaultOptions();
-
-        loader = XmlConfigurationLoader.builder().path(configFile.toPath()).build();
-
-        if (!configFile.exists()) {
-            System.out.println("File " + file + "does not exist.");
-        } else {
-            loadConfigValues();
-        }
-    }
-
-    // Load configuration values
-    public void loadConfigValues() {
-        try {
-            rootNode = loader.load(options); // Load the config directly
-            System.out.println("Config loaded successfully.");
-        } catch (Exception e) {
-            System.out.println("Failed to load configurations from config.yml " + e);
-            e.getCause();
-        }
-    }
-
-    // Save the configuration to disk
-    public void saveConfig() {
-        try {
-            loader.save(rootNode);
-        } catch (IOException e) {
-            System.out.println("Could not save config.yml!");
-            e.printStackTrace();
-        }
-    }
-
-    // Check if a path exists in the configuration
-    public boolean doesPathExist(String path) {
-        return !rootNode.node((Object[]) path.split("\\.")).virtual();
-    }
-
-    // Get a generic config value
-    public Object getConfigValue(String path) {
-        try {
-            return rootNode.node((Object[]) path.split("\\.")).get(Object.class);
-        } catch (Exception e) {
-            System.out.println("Failed to get config value at path: " + path);
-            e.printStackTrace();
+        if (!file.exists()) {
             return null;
         }
+
+        JAXBContext context = JAXBContext.newInstance(clazz);
+        return (T) context.createUnmarshaller().unmarshal(file);
     }
 
-    public List<AttributedConfigurationNode> getChildNodes(String path) {
+    public boolean createUser(String username, String password, String email,
+                              String firstname, String lastname, Genders gender) {
         try {
-            AttributedConfigurationNode node = rootNode.node((Object[]) path.split("\\."));
-            return node.childrenList();
-        } catch (Exception e) {
-            System.out.println("Failed to get child nodes at path: " + path);
-            e.printStackTrace();
-            return null;
-        }
-    }
+            PlayerRegistrar registrar = getOrCreateRegistrar();
 
-    public boolean isListNode(String path) {
-        try {
-            AttributedConfigurationNode node = rootNode.node((Object[]) path.split("\\."));
-            return node.isList();
-        } catch (Exception e) {
-            System.out.println("Failed to check if node is list at path: " + path);
+            if (isDefaultUser(username)) {
+                // Check if the default user has already been created
+                if (registrar.isCreatedDefault()) {
+                    return false;  // Default user already exists, so skip creation
+                }
+
+                System.out.println("Making the default user...");
+                User defaultUser = createUserObject(username, password, email, firstname, lastname, gender);
+                registrar.getUsers().add(defaultUser);
+                registrar.setCreatedDefault(true);
+
+                Player defaultPlayer = createPlayerObject(gender, defaultUser);
+                saveToXML(registrar, "./ServerData/registeredUsers.xml");
+                saveToXML(defaultPlayer, "./ServerData/Users/" + username + ".xml");
+
+                return true;
+            }
+
+            // For non-default users
+            User newUser = createUserObject(username, password, email, firstname, lastname, gender);
+            registrar.getUsers().add(newUser);
+
+            Player newPlayer = createPlayerObject(gender, newUser);
+            saveToXML(registrar, "./ServerData/registeredUsers.xml");
+            saveToXML(newPlayer, "./ServerData/Users/" + username + ".xml");
+
+            return true;
+
+        } catch (JAXBException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean isMapNode(String path) {
-        try {
-            AttributedConfigurationNode node = rootNode.node((Object[]) path.split("\\."));
-            return node.isMap();
-        } catch (Exception e) {
-            System.out.println("Failed to check if node is map at path: " + path);
-            e.printStackTrace();
-            return false;
+    private PlayerRegistrar getOrCreateRegistrar() throws JAXBException {
+        File registrarFile = new File("./ServerData/registeredUsers.xml");
+        if (registrarFile.exists()) {
+            System.out.println("Using provided registrar found at def location");
+            return loadFromXML(registrarFile.getPath(), PlayerRegistrar.class);
         }
+        System.out.println("No registrar found. Creating new registrar");
+        PlayerRegistrar newRegistrar = new PlayerRegistrar();
+        newRegistrar.setUsers(new ArrayList<>());
+        return newRegistrar;
     }
 
-    public String getTagName(String path) {
-        try {
-            AttributedConfigurationNode node = rootNode.node((Object[]) path.split("\\."));
-            return node.tagName();
-        } catch (Exception e) {
-            System.out.println("Failed to get tag name at path: " + path);
-            e.printStackTrace();
-            return null;
+    private FamilyRegistrar getOrCreateFamilyRegistrar() throws JAXBException {
+        File registrarFile = new File("./Families/registeredFamilies.xml");
+        if (registrarFile.exists()) {
+            System.out.println("Using provided family registrar found at def location");
+            return loadFromXML(registrarFile.getPath(), FamilyRegistrar.class);
         }
+        System.out.println("No registrar found. Creating new registrar");
+        FamilyRegistrar newRegistrar = new FamilyRegistrar();
+        newRegistrar.setFamilies(new ArrayList<>());
+        return newRegistrar;
     }
 
-    public Map<String, String> getAttributes(String path) {
-        try {
-            AttributedConfigurationNode node = rootNode.node((Object[]) path.split("\\."));
-            if (node != null) {
-                return node.attributes();
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to get attributes at path: " + path);
-            e.printStackTrace();
-            return null;
-        }
+    private boolean isDefaultUser(String username) {
+        return "test1".equals(username);
     }
 
-    // Get boolean config value
-    public boolean getBooleanValue(String path) {
-        return rootNode.node((Object[]) path.split("\\.")).getBoolean();
+    private User createUserObject(String username, String password, String email,
+                                  String firstname, String lastname, Genders gender) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setLastname(lastname);
+        user.setFirstname(firstname);
+        user.setGender(gender);
+        return user;
     }
 
-    // Get double config value
-    public double getDoubleValue(String path) {
-        return rootNode.node((Object[]) path.split("\\.")).getDouble();
+    private Player createPlayerObject(Genders gender, User user) throws JAXBException {
+        Player player = new Player();
+
+        // Create the main clothing items
+        TopClothes topCloth = createTopClothes(gender, "def");
+        BottomClothes bottomCloth = createBottomClothes(gender, "def");
+        Shoes shoes = createShoes("def");
+
+        // Assign default clothing to the player
+        player.setUpperWear(topCloth);
+        player.setLowerWear(bottomCloth);
+        player.setFootwear(shoes);
+
+        // Populate the collections with the shared instances
+        player.setCollectedUpperWear(new ArrayList<>());
+        player.setCollectedLowerWear(new ArrayList<>());
+        player.setCollectedFootwear(new ArrayList<>());
+
+        player.getCollectedUpperWear().add(createTopCloth(gender, "def"));
+        player.getCollectedUpperWear().add(createTopCloth(gender, "alt"));
+
+        player.getCollectedLowerWear().add(createBottomCloth(gender, "def"));
+        player.getCollectedLowerWear().add(createBottomCloth(gender, "alt"));
+
+        player.getCollectedFootwear().add(createShoe("def"));
+        player.getCollectedFootwear().add(createShoe("alt"));
+
+        // Set other attributes as needed
+        player.setIrisColor(new Color(0, 0, 0, 100));
+        player.setHairShade(new Color(0, 0, 0, 100));
+        player.setEyeLashHue(new Color(0, 0, 0, 100));
+        player.setComplexion(new Color(0, 0, 0, 100));
+        player.setEyeLashDesign(Styles.EyelashStyles.DEFAULT);
+        player.setHairDesign(Styles.HairStyles.DEFAULT);
+        player.setAdornments(new ArrayList<>());
+        player.setCollectedAdornments(new ArrayList<>());
+
+        FamilyNames familyName = EnumRandomizer.getRandomEnum(FamilyNames.class);
+        Wealth familyWealth = Wealth.getRandomWealthByWeight();
+
+        FamilyRegistrar familyRegistrar = getOrCreateFamilyRegistrar();
+        Family family = new Family(familyName);
+        family.setFamilyWealth(familyWealth);
+        family.setFamilyMembers(new ArrayList<>());
+        MinimalUser mUser = new MinimalUser(user);
+        family.getFamilyMembers().add(mUser);
+        family.setFamilySize();
+        familyRegistrar.getFamilies().add(family);
+
+        PlayerFamily playerFamily = new PlayerFamily(family);
+        playerFamily.setFamilyPosition(family.getFamilyMembers().size() + 1);
+        player.setFamily(playerFamily);
+
+        XmlConfigManager manager = new XmlConfigManager(Family.class, FamilyRegistrar.class, Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Shoe.class, Accessory.class);
+        manager.saveToXML(familyRegistrar, "./ServerData/registeredFamilies.xml");
+
+        return player;
     }
 
-    public int getIntegerValue(String path) {
-        return rootNode.node((Object[]) path.split("\\.")).getInt();
-    }
-
-    // Get string config value
-    public String getStringValue(String path) {
-        return rootNode.node((Object[]) path.split("\\.")).getString();
-    }
-
-    // Set a config value, ensuring parent nodes exist
-    public void setConfigValue(
-        String Key, Object value, String comment, Map<String, String> attributes) {
-        try {
-            // Split the parentKey and childKey to handle nested structures
-            AttributedConfigurationNode node = rootNode.node((Object[]) Key.split("\\."));
-            if (attributes != null) {
-                node.attributes(attributes);
-            }
-            if (comment != null) {
-                node.comment(comment);
-            }
-            node.set(value);
-        } catch (Exception e) {
-            System.out.println("Failed to add config: " + Key + " with value: " + value);
-        }
-        saveConfig(); // Save changes to the config file
-    }
-
-    public void createDefaultUser(String username, String password) {
-        createConfig("Clients/Users/registered_users.xml");
-        if (username.equals("test1")) {
-            if (!getBooleanValue("created_default")) {
-
-                // Register
-                setConfigValue("created_default", true, "has created default", null);
-                Map<String, String> defaultAttributes = getDefaultRegisteredPlayer(username, password);
-                setConfigValue("users.user", "", "Default user...", defaultAttributes);
-
-                // Data register
-                createConfig("Clients/Users/" + username + "/data.xml");
-
-                setConfigValue("playerData.eyeLashStyle", "style_1", "", null);
-                setConfigValue("playerData.eyeLashColor", "black", "", null);
-                setConfigValue("playerData.hairStyle", "style_1", "", null);
-                setConfigValue("playerData.hairColor", "black", "", null);
-                setConfigValue("playerData.eyeColor", "black", "", null);
-                setConfigValue("playerData.skinColor", "dark_brown", "", null);
-                setConfigValue("playerData.topCloth", "c_def_1", "Default Top", null);
-                setConfigValue("playerData.bottomCloth", "t_def_1", "Default Short", null);
-                setConfigValue("playerData.shoe", "s_def_1", "Default Shoe", null);
-
-                Map<String, String> defaultAccessories = new HashMap<>();
-                defaultAccessories.put("key", "accessory_0");
-
-                int i = 0;
-                for (Map.Entry<String, String> entry : defaultAccessories.entrySet()) {
-                    int index = i;
-
-                    Map<String, String> singleEntryMap = new HashMap<>();
-                    singleEntryMap.put(entry.getKey(), entry.getValue());
-
-                    setConfigValue("playerData.accessories.accessory", "default_accessory_" + index, "", singleEntryMap);
-
-                    i++;
-                }
-
-
-                //Top cloth
-                List<Map<String, String>> defaultTopCloths = new ArrayList<>();
-
-                // First topCloth
-                Map<String, String> cloth1 = new HashMap<>();
-                cloth1.put("rarity", "common");
-                cloth1.put("id", "c_def_1");
-                defaultTopCloths.add(cloth1);
-
-                // Second topCloth
-                Map<String, String> cloth2 = new HashMap<>();
-                cloth2.put("rarity", "common");
-                cloth2.put("id", "c_alt_1");
-                defaultTopCloths.add(cloth2);
-
-                int index = 0;
-                for (Map<String, String> topClothAttributes : defaultTopCloths) {
-                    // Set each attribute map as a single entry
-                    setConfigValue("playerData.ownedItems.topClothes.topCloth", "", "Default Owned Top", topClothAttributes);
-                    index++;
-                }
-
-
-                List<Map<String, String>> defaultBottomCloths = new ArrayList<>();
-
-                // First topCloth
-                Map<String, String> bottom1 = new HashMap<>();
-                bottom1.put("rarity", "common");
-                bottom1.put("id", "t_def_1");
-                defaultBottomCloths.add(bottom1);
-
-                // Second topCloth
-                Map<String, String> bottom2 = new HashMap<>();
-                bottom2.put("rarity", "common");
-                bottom2.put("id", "t_alt_1");
-                defaultBottomCloths.add(bottom2);
-
-                index = 0;
-                for (Map<String, String> topClothAttributes : defaultBottomCloths) {
-                    // Set each attribute map as a single entry
-                    setConfigValue("playerData.ownedItems.topClothes.topCloth", "", "Default Owned Top", topClothAttributes);
-                    index++;
-                }
-
-
-                List<Map<String, String>> defaultShoes = new ArrayList<>();
-
-                // First topCloth
-                Map<String, String> shoe1 = new HashMap<>();
-                shoe1.put("rarity", "common");
-                shoe1.put("id", "s_def_1");
-                defaultShoes.add(shoe1);
-
-                // Second topCloth
-                Map<String, String> shoe2 = new HashMap<>();
-                shoe2.put("rarity", "common");
-                shoe2.put("id", "s_alt_1");
-                defaultShoes.add(shoe2);
-
-                index = 0;
-                for (Map<String, String> topClothAttributes : defaultShoes) {
-                    // Set each attribute map as a single entry
-                    setConfigValue("playerData.ownedItems.shoes.shoe", "", "Default Owned Shoe", topClothAttributes);
-                    index++;
-                }
-
-
-                List<Map<String, String>> defaultAccesories = new ArrayList<>();
-
-                // First topCloth
-                Map<String, String> bangle = new HashMap<>();
-                bangle.put("rarity", "common");
-                bangle.put("id", "bangle");
-                defaultAccesories.add(bangle);
-
-                index = 0;
-                for (Map<String, String> topClothAttributes : defaultAccesories) {
-                    // Set each attribute map as a single entry
-                    setConfigValue("playerData.ownedItems.accessories.accessory", "", "Default Owned Accessory", topClothAttributes);
-                    index++;
-                }
-            }
+    // Helper methods remain the same as before
+    private TopClothes createTopClothes(Genders gender, String variant) {
+        String g;
+        if (gender == Genders.MALE){
+            g = "m";
         }else{
-            // Register
-            setConfigValue("created_default", true, "has created default", null);
-            Map<String, String> defaultAttributes = getDefaultRegisteredPlayer(username, password);
-            setConfigValue("users.user", "", "Default user...", defaultAttributes);
-
-            // Data register
-            createConfig("Clients/Users/" + username + "/data.xml");
-
-            setConfigValue("playerData.eyeLashStyle", "style_1", "", null);
-            setConfigValue("playerData.eyeLashColor", "black", "", null);
-            setConfigValue("playerData.hairStyle", "style_1", "", null);
-            setConfigValue("playerData.hairColor", "black", "", null);
-            setConfigValue("playerData.eyeColor", "black", "", null);
-            setConfigValue("playerData.skinColor", "dark_brown", "", null);
-            setConfigValue("playerData.topCloth", "c_def_1", "Default Top", null);
-            setConfigValue("playerData.bottomCloth", "t_def_1", "Default Short", null);
-            setConfigValue("playerData.shoe", "s_def_1", "Default Shoe", null);
-
-            Map<String, String> defaultAccessories = new HashMap<>();
-            defaultAccessories.put("key", "accessory_0");
-
-            int i = 0;
-            for (Map.Entry<String, String> entry : defaultAccessories.entrySet()) {
-                int index = i;
-
-                Map<String, String> singleEntryMap = new HashMap<>();
-                singleEntryMap.put(entry.getKey(), entry.getValue());
-
-                setConfigValue("playerData.accessories.accessory", "default_accessory_" + index, "", singleEntryMap);
-
-                i++;
-            }
-
-
-            //Top cloth
-            List<Map<String, String>> defaultTopCloths = new ArrayList<>();
-
-            // First topCloth
-            Map<String, String> cloth1 = new HashMap<>();
-            cloth1.put("rarity", "common");
-            cloth1.put("id", "c_def_1");
-            defaultTopCloths.add(cloth1);
-
-            // Second topCloth
-            Map<String, String> cloth2 = new HashMap<>();
-            cloth2.put("rarity", "common");
-            cloth2.put("id", "c_alt_1");
-            defaultTopCloths.add(cloth2);
-
-            int index = 0;
-            for (Map<String, String> topClothAttributes : defaultTopCloths) {
-                // Set each attribute map as a single entry
-                setConfigValue("playerData.ownedItems.topClothes.topCloth", "", "Default Owned Top", topClothAttributes);
-                index++;
-            }
-
-
-            List<Map<String, String>> defaultBottomCloths = new ArrayList<>();
-
-            // First topCloth
-            Map<String, String> bottom1 = new HashMap<>();
-            bottom1.put("rarity", "common");
-            bottom1.put("id", "t_def_1");
-            defaultBottomCloths.add(bottom1);
-
-            // Second topCloth
-            Map<String, String> bottom2 = new HashMap<>();
-            bottom2.put("rarity", "common");
-            bottom2.put("id", "t_alt_1");
-            defaultBottomCloths.add(bottom2);
-
-            index = 0;
-            for (Map<String, String> topClothAttributes : defaultBottomCloths) {
-                // Set each attribute map as a single entry
-                setConfigValue("playerData.ownedItems.topClothes.topCloth", "", "Default Owned Top", topClothAttributes);
-                index++;
-            }
-
-
-            List<Map<String, String>> defaultShoes = new ArrayList<>();
-
-            // First topCloth
-            Map<String, String> shoe1 = new HashMap<>();
-            shoe1.put("rarity", "common");
-            shoe1.put("id", "s_def_1");
-            defaultShoes.add(shoe1);
-
-            // Second topCloth
-            Map<String, String> shoe2 = new HashMap<>();
-            shoe2.put("rarity", "common");
-            shoe2.put("id", "s_alt_1");
-            defaultShoes.add(shoe2);
-
-            index = 0;
-            for (Map<String, String> topClothAttributes : defaultShoes) {
-                // Set each attribute map as a single entry
-                setConfigValue("playerData.ownedItems.shoes.shoe", "", "Default Owned Shoe", topClothAttributes);
-                index++;
-            }
-
-
-            List<Map<String, String>> defaultAccesories = new ArrayList<>();
-
-            // First topCloth
-            Map<String, String> bangle = new HashMap<>();
-            bangle.put("rarity", "common");
-            bangle.put("id", "bangle");
-            defaultAccesories.add(bangle);
-
-            index = 0;
-            for (Map<String, String> topClothAttributes : defaultAccesories) {
-                // Set each attribute map as a single entry
-                setConfigValue("playerData.ownedItems.accessories.accessory", "", "Default Owned Accessory", topClothAttributes);
-                index++;
-            }
+            g = "f";
         }
+
+        Material material = variant.equals("def") ? Material.POLYESTER : Material.WOOL;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "t_def_"+g : "t_alt_"+g;
+        TopCloth shoe = new TopCloth(rarity, material, key);
+
+        return new TopClothes(shoe);
+    }
+    private BottomClothes createBottomClothes(Genders gender, String variant) {
+        String g;
+        if (gender == Genders.MALE){
+            g = "m";
+        }else{
+            g = "f";
+        }
+
+        Material material = variant.equals("def") ? Material.CHINOS : Material.JEANS;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "c_def_"+g : "c_alt_"+g;
+        BottomCloth shoe = new BottomCloth(rarity, material, key);
+
+        return new BottomClothes(shoe);
+    }
+    private Shoes createShoes(String variant) {
+        Material material = variant.equals("def") ? Material.LEATHER : Material.CANVAS;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "s_def_u" : "s_alt_u";
+        Shoe shoe = new Shoe(rarity, material, key);
+
+        return new Shoes(shoe);
     }
 
-    private static Map<String, String> getDefaultRegisteredPlayer(String username, String password) {
-        // "onlyifyouknewwhatitwas009!&"
 
-        Map<String, String> defaultAttributes = new HashMap<>();
-        defaultAttributes.put("username", username);
-        defaultAttributes.put("password", password);
-        defaultAttributes.put("email", "test_001@waitamin.com");
-        defaultAttributes.put("firstname", "Robot");
-        defaultAttributes.put("lastname", "Logic");
-        return defaultAttributes;
+    private TopCloth createTopCloth(Genders gender, String variant) {
+        String g;
+        if (gender == Genders.MALE){
+            g = "m";
+        }else{
+            g = "f";
+        }
+
+        Material material = variant.equals("def") ? Material.POLYESTER : Material.WOOL;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "s_def_"+g : "s_alt_"+g;
+
+        return new TopCloth(rarity, material, key);
+    }
+    private BottomCloth createBottomCloth(Genders gender, String variant) {
+        String g;
+        if (gender == Genders.MALE){
+            g = "m";
+        }else{
+            g = "f";
+        }
+
+        Material material = variant.equals("def") ? Material.CHINOS : Material.JEANS;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "s_def_"+g : "s_alt_"+g;
+
+        return new BottomCloth(rarity, material, key);
+    }
+    private Shoe createShoe(String variant) {
+        Material material = variant.equals("def") ? Material.LEATHER : Material.CANVAS;
+        Rarity rarity = Rarity.COMMON;
+        String key = variant.equals("def") ? "s_def_u" : "s_alt_u";
+
+        return new Shoe(rarity, material, key);
     }
 }

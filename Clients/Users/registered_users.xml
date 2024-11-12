@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-    <!-- has created default -->
-    <created_default>true</created_default>
-    <users>
-        <!-- Default user... -->
-        <user email="test_001@waitamin.com" firstname="Robot" lastname="Logic" password="onlyifyouknewwhatitwas009!&amp;" username="test1"/>
-    </users>
-</config>

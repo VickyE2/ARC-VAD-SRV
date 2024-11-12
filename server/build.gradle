@@ -14,6 +14,9 @@ eclipse.project.name = appName + '-server'
 dependencies {
   implementation 'org.java-websocket:Java-WebSocket:1.5.2'
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
+  implementation "javax.xml.bind:jaxb-api:2.3.0"
+  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+  implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
   implementation 'org.spongepowered:configurate-yaml:4.1.2'
   implementation 'org.spongepowered:configurate-jackson:4.1.2'
   implementation 'org.spongepowered:configurate-xml:4.1.2'
