@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="1" nextlayerid="8" nextobjectid="1">
+ <tileset firstgid="1" name="Ayo-sBasic-terrain" tilewidth="32" tileheight="32" tilecount="160" columns="10">
+  <image source="tiles/basic_tileset_and_assets_32x32_standard_v2/basic_tileset_and_assets_standard/terrain_tiles_v2.png" width="320" height="512"/>
+  <wangsets>
+   <wangset name="Grass" type="mixed" tile="-1">
+    <wangcolor name="Grass" color="#00ff00" tile="-1" probability="1"/>
+    <wangcolor name="Stone" color="#764419" tile="-1" probability="1"/>
+    <wangcolor name="Sand" color="#ff7950" tile="-1" probability="1"/>
+    <wangtile tileid="0" wangid="1,1,3,3,3,1,1,1"/>
+    <wangtile tileid="1" wangid="1,1,3,3,3,3,3,1"/>
+    <wangtile tileid="2" wangid="1,1,1,1,3,3,3,1"/>
+    <wangtile tileid="3" wangid="1,1,1,1,0,1,1,1"/>
+    <wangtile tileid="4" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="5" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="6" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="7" wangid="3,2,2,2,3,2,2,2"/>
+    <wangtile tileid="10" wangid="3,3,3,3,3,1,1,1"/>
+    <wangtile tileid="11" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="12" wangid="3,1,1,1,3,3,3,3"/>
+    <wangtile tileid="13" wangid="0,1,1,1,0,1,1,1"/>
+    <wangtile tileid="14" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="15" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="16" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="17" wangid="3,2,2,2,3,2,2,2"/>
+    <wangtile tileid="20" wangid="3,3,3,1,1,1,1,1"/>
+    <wangtile tileid="21" wangid="3,3,3,1,1,1,3,3"/>
+    <wangtile tileid="22" wangid="3,1,1,1,1,1,3,3"/>
+    <wangtile tileid="23" wangid="0,1,1,1,1,1,1,1"/>
+    <wangtile tileid="24" wangid="3,3,3,2,2,2,2,2"/>
+    <wangtile tileid="25" wangid="3,3,3,2,2,2,3,3"/>
+    <wangtile tileid="26" wangid="3,2,2,2,2,2,3,3"/>
+    <wangtile tileid="27" wangid="3,2,2,2,2,2,2,2"/>
+    <wangtile tileid="30" wangid="1,1,3,1,1,1,1,1"/>
+    <wangtile tileid="31" wangid="1,1,3,1,1,1,3,1"/>
+    <wangtile tileid="32" wangid="1,1,1,1,1,1,3,1"/>
+    <wangtile tileid="33" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="34" wangid="3,3,3,2,2,2,2,2"/>
+    <wangtile tileid="35" wangid="3,3,3,2,2,2,3,3"/>
+    <wangtile tileid="36" wangid="3,2,2,2,2,2,3,3"/>
+    <wangtile tileid="37" wangid="3,2,2,2,2,2,2,2"/>
+    <wangtile tileid="40" wangid="3,3,1,1,1,3,3,3"/>
+    <wangtile tileid="41" wangid="3,3,1,1,1,1,1,3"/>
+    <wangtile tileid="42" wangid="3,3,3,3,1,1,1,3"/>
+    <wangtile tileid="43" wangid="3,3,3,3,1,3,3,3"/>
+    <wangtile tileid="44" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="45" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="46" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="47" wangid="1,2,2,2,1,2,2,2"/>
+    <wangtile tileid="50" wangid="1,1,1,1,1,3,3,3"/>
+    <wangtile tileid="51" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="52" wangid="1,3,3,3,1,1,1,1"/>
+    <wangtile tileid="53" wangid="1,3,3,3,1,3,3,3"/>
+    <wangtile tileid="54" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="55" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="56" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="57" wangid="1,2,2,2,1,2,2,2"/>
+    <wangtile tileid="60" wangid="1,1,1,3,3,3,3,3"/>
+    <wangtile tileid="61" wangid="1,1,1,3,3,3,1,1"/>
+    <wangtile tileid="62" wangid="1,3,3,3,3,3,1,1"/>
+    <wangtile tileid="63" wangid="1,3,3,3,3,3,3,3"/>
+    <wangtile tileid="64" wangid="1,1,1,2,2,2,2,2"/>
+    <wangtile tileid="65" wangid="1,1,1,2,2,2,1,1"/>
+    <wangtile tileid="66" wangid="1,2,2,2,2,2,1,1"/>
+    <wangtile tileid="67" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="70" wangid="3,3,1,3,3,3,3,3"/>
+    <wangtile tileid="71" wangid="3,3,1,3,3,3,1,3"/>
+    <wangtile tileid="72" wangid="3,3,3,3,3,3,1,3"/>
+    <wangtile tileid="73" wangid="1,3,1,3,1,3,1,3"/>
+    <wangtile tileid="74" wangid="1,1,1,2,2,2,2,2"/>
+    <wangtile tileid="75" wangid="1,1,1,2,2,2,1,1"/>
+    <wangtile tileid="76" wangid="1,2,2,2,2,2,1,1"/>
+    <wangtile tileid="77" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="84" wangid="3,3,1,1,1,3,3,3"/>
+    <wangtile tileid="85" wangid="3,3,3,3,1,1,1,3"/>
+    <wangtile tileid="86" wangid="1,1,3,3,3,1,1,1"/>
+    <wangtile tileid="87" wangid="1,1,1,1,3,3,3,1"/>
+    <wangtile tileid="94" wangid="1,1,1,3,3,3,3,3"/>
+    <wangtile tileid="95" wangid="1,3,3,3,3,3,1,1"/>
+    <wangtile tileid="96" wangid="3,3,3,1,1,1,1,1"/>
+    <wangtile tileid="97" wangid="3,1,1,1,1,1,3,3"/>
+    <wangtile tileid="100" wangid="1,1,1,3,1,1,1,3"/>
+    <wangtile tileid="101" wangid="1,3,1,1,1,3,1,1"/>
+    <wangtile tileid="102" wangid="3,3,3,1,3,3,3,1"/>
+    <wangtile tileid="103" wangid="3,1,3,3,3,1,3,3"/>
+    <wangtile tileid="110" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="111" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="112" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="113" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="114" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="115" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="120" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="121" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="122" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="123" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="124" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="125" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="130" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="131" wangid="1,1,2,2,2,2,2,1"/>
+    <wangtile tileid="132" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="133" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="134" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="135" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="140" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="141" wangid="1,1,2,2,2,2,2,1"/>
+    <wangtile tileid="142" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="143" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="144" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="145" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="150" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="151" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="154" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="155" wangid="2,2,2,2,2,2,2,2"/>
+   </wangset>
+   <wangset name="GrassEdge" type="corner" tile="-1">
+    <wangcolor name="Dirt" color="#ff0000" tile="-1" probability="1"/>
+    <wangcolor name="Stone" color="#00ff00" tile="-1" probability="1"/>
+    <wangcolor name="Sand" color="#0000ff" tile="-1" probability="1"/>
+    <wangtile tileid="0" wangid="0,1,0,3,0,1,0,1"/>
+    <wangtile tileid="1" wangid="0,1,0,3,0,3,0,1"/>
+    <wangtile tileid="2" wangid="0,1,0,1,0,3,0,1"/>
+    <wangtile tileid="10" wangid="0,3,0,3,0,1,0,1"/>
+    <wangtile tileid="11" wangid="0,3,0,3,0,3,0,3"/>
+    <wangtile tileid="12" wangid="0,1,0,1,0,3,0,3"/>
+    <wangtile tileid="20" wangid="0,3,0,1,0,1,0,1"/>
+    <wangtile tileid="21" wangid="0,3,0,1,0,1,0,3"/>
+    <wangtile tileid="22" wangid="0,1,0,1,0,1,0,3"/>
+    <wangtile tileid="40" wangid="0,3,0,1,0,3,0,3"/>
+    <wangtile tileid="41" wangid="0,3,0,1,0,1,0,3"/>
+    <wangtile tileid="42" wangid="0,3,0,3,0,1,0,3"/>
+    <wangtile tileid="50" wangid="0,1,0,1,0,3,0,3"/>
+    <wangtile tileid="51" wangid="0,1,0,1,0,1,0,1"/>
+    <wangtile tileid="52" wangid="0,3,0,3,0,1,0,1"/>
+    <wangtile tileid="60" wangid="0,1,0,3,0,3,0,3"/>
+    <wangtile tileid="61" wangid="0,1,0,3,0,3,0,1"/>
+    <wangtile tileid="62" wangid="0,3,0,3,0,3,0,1"/>
+    <wangtile tileid="84" wangid="0,3,0,1,0,3,0,3"/>
+    <wangtile tileid="85" wangid="0,3,0,3,0,1,0,3"/>
+    <wangtile tileid="86" wangid="0,1,0,3,0,1,0,1"/>
+    <wangtile tileid="87" wangid="0,1,0,1,0,3,0,1"/>
+    <wangtile tileid="94" wangid="0,1,0,3,0,3,0,3"/>
+    <wangtile tileid="95" wangid="0,3,0,3,0,3,0,1"/>
+    <wangtile tileid="96" wangid="0,3,0,1,0,1,0,1"/>
+    <wangtile tileid="97" wangid="0,1,0,1,0,1,0,3"/>
+    <wangtile tileid="100" wangid="0,1,0,3,0,1,0,3"/>
+    <wangtile tileid="101" wangid="0,3,0,1,0,3,0,1"/>
+    <wangtile tileid="102" wangid="0,3,0,1,0,3,0,1"/>
+    <wangtile tileid="103" wangid="0,1,0,3,0,1,0,3"/>
+   </wangset>
+  </wangsets>
+ </tileset>
+ <tileset firstgid="161" name="water_animation_demo" tilewidth="32" tileheight="32" tilecount="24" columns="6">
+  <image source="tiles/water_animation_demo/water_animation_demo/water_animation_demo.png" width="192" height="128"/>
+  <tile id="5">
+   <animation>
+    <frame tileid="0" duration="150"/>
+    <frame tileid="1" duration="150"/>
+    <frame tileid="2" duration="150"/>
+    <frame tileid="3" duration="150"/>
+    <frame tileid="4" duration="150"/>
+    <frame tileid="5" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="0"/>
+  <tile id="1"/>
+  <tile id="2"/>
+  <tile id="3"/>
+  <tile id="4"/>
+  <tile id="6">
+   <animation>
+    <frame tileid="6" duration="150"/>
+    <frame tileid="7" duration="150"/>
+    <frame tileid="8" duration="150"/>
+    <frame tileid="9" duration="150"/>
+    <frame tileid="10" duration="150"/>
+    <frame tileid="11" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="7"/>
+  <tile id="8"/>
+  <tile id="9"/>
+  <tile id="10"/>
+  <tile id="11"/>
+  <tile id="12">
+   <animation>
+    <frame tileid="12" duration="150"/>
+    <frame tileid="13" duration="150"/>
+    <frame tileid="14" duration="150"/>
+    <frame tileid="15" duration="150"/>
+    <frame tileid="16" duration="150"/>
+    <frame tileid="17" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="13"/>
+  <tile id="14"/>
+  <tile id="15"/>
+  <tile id="16"/>
+  <tile id="17"/>
+  <tile id="18">
+   <animation>
+    <frame tileid="18" duration="150"/>
+    <frame tileid="19" duration="150"/>
+    <frame tileid="20" duration="150"/>
+    <frame tileid="21" duration="150"/>
+    <frame tileid="22" duration="150"/>
+    <frame tileid="23" duration="150"/>
+   </animation>
+  </tile>
+  <tile id="19"/>
+  <tile id="20"/>
+  <tile id="21"/>
+  <tile id="22"/>
+  <tile id="23"/>
+ </tileset>
+ <tileset firstgid="185" name="Ayo-sBasic-terrain" tilewidth="32" tileheight="32" tilecount="160" columns="10">
+  <image source="tiles/basic_tileset_and_assets_32x32_standard_v2/basic_tileset_and_assets_standard/terrain_tiles_v2.png" width="320" height="512"/>
+  <wangsets>
+   <wangset name="Grass" type="mixed" tile="-1">
+    <wangcolor name="Grass" color="#00ff00" tile="-1" probability="1"/>
+    <wangcolor name="Stone" color="#764419" tile="-1" probability="1"/>
+    <wangcolor name="Sand" color="#ff7950" tile="-1" probability="1"/>
+    <wangtile tileid="0" wangid="1,1,3,3,3,1,1,1"/>
+    <wangtile tileid="1" wangid="1,1,3,3,3,3,3,1"/>
+    <wangtile tileid="2" wangid="1,1,1,1,3,3,3,1"/>
+    <wangtile tileid="3" wangid="1,1,1,1,0,1,1,1"/>
+    <wangtile tileid="4" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="5" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="6" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="7" wangid="3,2,2,2,3,2,2,2"/>
+    <wangtile tileid="10" wangid="3,3,3,3,3,1,1,1"/>
+    <wangtile tileid="11" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="12" wangid="3,1,1,1,3,3,3,3"/>
+    <wangtile tileid="13" wangid="0,1,1,1,0,1,1,1"/>
+    <wangtile tileid="14" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="15" wangid="3,3,3,3,3,3,3,3"/>
+    <wangtile tileid="16" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="17" wangid="3,2,2,2,3,2,2,2"/>
+    <wangtile tileid="20" wangid="3,3,3,1,1,1,1,1"/>
+    <wangtile tileid="21" wangid="3,3,3,1,1,1,3,3"/>
+    <wangtile tileid="22" wangid="3,1,1,1,1,1,3,3"/>
+    <wangtile tileid="23" wangid="0,1,1,1,1,1,1,1"/>
+    <wangtile tileid="24" wangid="3,3,3,2,2,2,2,2"/>
+    <wangtile tileid="25" wangid="3,3,3,2,2,2,3,3"/>
+    <wangtile tileid="26" wangid="3,2,2,2,2,2,3,3"/>
+    <wangtile tileid="27" wangid="3,2,2,2,2,2,2,2"/>
+    <wangtile tileid="30" wangid="1,1,3,1,1,1,1,1"/>
+    <wangtile tileid="31" wangid="1,1,3,1,1,1,3,1"/>
+    <wangtile tileid="32" wangid="1,1,1,1,1,1,3,1"/>
+    <wangtile tileid="33" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="34" wangid="3,3,3,2,2,2,2,2"/>
+    <wangtile tileid="35" wangid="3,3,3,2,2,2,3,3"/>
+    <wangtile tileid="36" wangid="3,2,2,2,2,2,3,3"/>
+    <wangtile tileid="37" wangid="3,2,2,2,2,2,2,2"/>
+    <wangtile tileid="40" wangid="3,3,1,1,1,3,3,3"/>
+    <wangtile tileid="41" wangid="3,3,1,1,1,1,1,3"/>
+    <wangtile tileid="42" wangid="3,3,3,3,1,1,1,3"/>
+    <wangtile tileid="43" wangid="3,3,3,3,1,3,3,3"/>
+    <wangtile tileid="44" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="45" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="46" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="47" wangid="1,2,2,2,1,2,2,2"/>
+    <wangtile tileid="50" wangid="1,1,1,1,1,3,3,3"/>
+    <wangtile tileid="51" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="52" wangid="1,3,3,3,1,1,1,1"/>
+    <wangtile tileid="53" wangid="1,3,3,3,1,3,3,3"/>
+    <wangtile tileid="54" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="55" wangid="1,1,1,1,1,1,1,1"/>
+    <wangtile tileid="56" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="57" wangid="1,2,2,2,1,2,2,2"/>
+    <wangtile tileid="60" wangid="1,1,1,3,3,3,3,3"/>
+    <wangtile tileid="61" wangid="1,1,1,3,3,3,1,1"/>
+    <wangtile tileid="62" wangid="1,3,3,3,3,3,1,1"/>
+    <wangtile tileid="63" wangid="1,3,3,3,3,3,3,3"/>
+    <wangtile tileid="64" wangid="1,1,1,2,2,2,2,2"/>
+    <wangtile tileid="65" wangid="1,1,1,2,2,2,1,1"/>
+    <wangtile tileid="66" wangid="1,2,2,2,2,2,1,1"/>
+    <wangtile tileid="67" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="70" wangid="3,3,1,3,3,3,3,3"/>
+    <wangtile tileid="71" wangid="3,3,1,3,3,3,1,3"/>
+    <wangtile tileid="72" wangid="3,3,3,3,3,3,1,3"/>
+    <wangtile tileid="73" wangid="1,3,1,3,1,3,1,3"/>
+    <wangtile tileid="74" wangid="1,1,1,2,2,2,2,2"/>
+    <wangtile tileid="75" wangid="1,1,1,2,2,2,1,1"/>
+    <wangtile tileid="76" wangid="1,2,2,2,2,2,1,1"/>
+    <wangtile tileid="77" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="84" wangid="3,3,1,1,1,3,3,3"/>
+    <wangtile tileid="85" wangid="3,3,3,3,1,1,1,3"/>
+    <wangtile tileid="86" wangid="1,1,3,3,3,1,1,1"/>
+    <wangtile tileid="87" wangid="1,1,1,1,3,3,3,1"/>
+    <wangtile tileid="94" wangid="1,1,1,3,3,3,3,3"/>
+    <wangtile tileid="95" wangid="1,3,3,3,3,3,1,1"/>
+    <wangtile tileid="96" wangid="3,3,3,1,1,1,1,1"/>
+    <wangtile tileid="97" wangid="3,1,1,1,1,1,3,3"/>
+    <wangtile tileid="100" wangid="1,1,1,3,1,1,1,3"/>
+    <wangtile tileid="101" wangid="1,3,1,1,1,3,1,1"/>
+    <wangtile tileid="102" wangid="3,3,3,1,3,3,3,1"/>
+    <wangtile tileid="103" wangid="3,1,3,3,3,1,3,3"/>
+    <wangtile tileid="110" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="111" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="112" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="113" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="114" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="115" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="120" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="121" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="122" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="123" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="124" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="125" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="130" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="131" wangid="1,1,2,2,2,2,2,1"/>
+    <wangtile tileid="132" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="133" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="134" wangid="1,1,1,1,1,2,2,2"/>
+    <wangtile tileid="135" wangid="1,2,2,2,1,1,1,1"/>
+    <wangtile tileid="140" wangid="1,1,2,2,2,2,2,2"/>
+    <wangtile tileid="141" wangid="1,1,2,2,2,2,2,1"/>
+    <wangtile tileid="142" wangid="1,2,2,2,2,2,2,1"/>
+    <wangtile tileid="143" wangid="1,2,2,2,2,2,2,2"/>
+    <wangtile tileid="144" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="145" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="150" wangid="3,3,3,3,3,2,2,2"/>
+    <wangtile tileid="151" wangid="3,2,2,2,3,3,3,3"/>
+    <wangtile tileid="154" wangid="2,2,2,2,2,2,2,2"/>
+    <wangtile tileid="155" wangid="2,2,2,2,2,2,2,2"/>
+   </wangset>
+   <wangset name="GrassEdge" type="corner" tile="-1">
+    <wangcolor name="Dirt" color="#ff0000" tile="-1" probability="1"/>
+    <wangcolor name="Stone" color="#00ff00" tile="-1" probability="1"/>
+    <wangcolor name="Sand" color="#0000ff" tile="-1" probability="1"/>
+    <wangtile tileid="0" wangid="0,1,0,3,0,1,0,1"/>
+    <wangtile tileid="1" wangid="0,1,0,3,0,3,0,1"/>
+    <wangtile tileid="2" wangid="0,1,0,1,0,3,0,1"/>
+    <wangtile tileid="10" wangid="0,3,0,3,0,1,0,1"/>
+    <wangtile tileid="11" wangid="0,3,0,3,0,3,0,3"/>
+    <wangtile tileid="12" wangid="0,1,0,1,0,3,0,3"/>
+    <wangtile tileid="20" wangid="0,3,0,1,0,1,0,1"/>
+    <wangtile tileid="21" wangid="0,3,0,1,0,1,0,3"/>
+    <wangtile tileid="22" wangid="0,1,0,1,0,1,0,3"/>
+    <wangtile tileid="40" wangid="0,3,0,1,0,3,0,3"/>
+    <wangtile tileid="41" wangid="0,3,0,1,0,1,0,3"/>
+    <wangtile tileid="42" wangid="0,3,0,3,0,1,0,3"/>
+    <wangtile tileid="50" wangid="0,1,0,1,0,3,0,3"/>
+    <wangtile tileid="51" wangid="0,1,0,1,0,1,0,1"/>
+    <wangtile tileid="52" wangid="0,3,0,3,0,1,0,1"/>
+    <wangtile tileid="60" wangid="0,1,0,3,0,3,0,3"/>
+    <wangtile tileid="61" wangid="0,1,0,3,0,3,0,1"/>
+    <wangtile tileid="62" wangid="0,3,0,3,0,3,0,1"/>
+    <wangtile tileid="84" wangid="0,3,0,1,0,3,0,3"/>
+    <wangtile tileid="85" wangid="0,3,0,3,0,1,0,3"/>
+    <wangtile tileid="86" wangid="0,1,0,3,0,1,0,1"/>
+    <wangtile tileid="87" wangid="0,1,0,1,0,3,0,1"/>
+    <wangtile tileid="94" wangid="0,1,0,3,0,3,0,3"/>
+    <wangtile tileid="95" wangid="0,3,0,3,0,3,0,1"/>
+    <wangtile tileid="96" wangid="0,3,0,1,0,1,0,1"/>
+    <wangtile tileid="97" wangid="0,1,0,1,0,1,0,3"/>
+    <wangtile tileid="100" wangid="0,1,0,3,0,1,0,3"/>
+    <wangtile tileid="101" wangid="0,3,0,1,0,3,0,1"/>
+    <wangtile tileid="102" wangid="0,3,0,1,0,3,0,1"/>
+    <wangtile tileid="103" wangid="0,1,0,3,0,1,0,3"/>
+   </wangset>
+  </wangsets>
+ </tileset>
+ <layer id="5" name="Tile-3" width="30" height="20">
+  <data encoding="base64">
+   <chunk x="-32" y="-16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="-16" y="-16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="0" y="-16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="16" y="-16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="32" y="-16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="-32" y="0" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="-16" y="0" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="0" y="0" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="16" y="0" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="32" y="0" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="-32" y="16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="-16" y="16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="0" y="16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="16" y="16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+   <chunk x="32" y="16" width="16" height="16">
+   pwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAKcAAACnAAAApwAAAA==
+  </chunk>
+  </data>
+ </layer>
+ <layer id="1" name="Tile-1" width="30" height="20">
+  <data encoding="base64">
+   <chunk x="-32" y="-16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="-16" y="-16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAFcAAAACAAAAPgAAAD4AAAA+AAAAPgAAAAIAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAAKQAAABYAAAAqAAAAKgAAABYAAAAWAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAEAAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAA+AAAAYAAAAD0AAAACAAAAAgAAAD4AAAA+AAAAAgAAAA==
+  </chunk>
+   <chunk x="0" y="-16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAIAAAA+AAAAPgAAAAIAAAA+AAAAAgAAAD4AAAA+AAAAAgAAAAIAAAACAAAAAgAAAAIAAAA+AAAAPgAAAAIAAAAqAAAAKgAAABYAAAAWAAAAFgAAACoAAAAWAAAAKgAAABYAAAAWAAAAFgAAABYAAAAWAAAAFgAAABYAAAAWAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAPgAAAFgAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="16" y="-16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAIAAAACAAAAPgAAAAIAAAA+AAAAPgAAAD4AAAA+AAAAPgAAAD4AAAA+AAAAWAAAADQAAAA0AAAANAAAADQAAAAqAAAAFgAAACoAAAAqAAAAKgAAABYAAAAWAAAAFgAAABYAAAAWAAAAVgAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAANAAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="32" y="-16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="-32" y="0" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAAEAAAA+AAAAAgAAAAIAAAA+AAAAPgAAAD4AAAA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAALAAAAKQAAACoAAAAqAAAAFgAAABYAAAAqAAAAFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANQAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAACwAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAALAAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="-16" y="0" width="16" height="16">
+   NAAAADUAAABVAAAAKgAAACoAAAAqAAAAFgAAACoAAAAqAAAAFgAAABYAAAAqAAAAFgAAABYAAAAWAAAAKgAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANQAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAACAAAAPwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAKgAAACsAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANQAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="0" y="0" width="16" height="16">
+   VgAAAD0AAAACAAAAAgAAAAIAAAACAAAAAgAAAAIAAAACAAAAPgAAAAIAAAA+AAAAAgAAAD4AAAACAAAAAgAAADUAAABVAAAAKgAAACoAAAAqAAAAFgAAACoAAAAqAAAAKgAAABYAAAAWAAAAKgAAACoAAAAqAAAAKgAAACoAAAALAAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAALAAAAPQAAAD4AAAACAAAAPgAAAAIAAAACAAAAPgAAAD4AAAA+AAAAAgAAAD4AAAACAAAAWAAAADQAAAA0AAAACwAAAFUAAAAqAAAAKgAAABYAAAAqAAAAKgAAACoAAAAWAAAAKgAAACoAAAAWAAAAKwAAAA0AAAA0AAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAA9AAAAAgAAAAIAAAALAAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAALAAAAVQAAABYAAAAWAAAANQAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAALAAAAMwAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANQAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="16" y="0" width="16" height="16">
+   PgAAAD4AAAACAAAAWAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAANAAAACoAAAAqAAAAVgAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAALAAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAA9AAAAAgAAAAIAAAACAAAAPgAAAAIAAAACAAAAYAAAAF8AAAACAAAAPgAAAD4AAAACAAAANAAAADQAAAALAAAAKQAAACoAAAAqAAAAFgAAACoAAAAWAAAAFgAAACoAAAAWAAAAKgAAACoAAAAWAAAAFgAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANQAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAsAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAD4AAAACAAAAPwAAAA0AAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAqAAAAKgAAACoAAABiAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAA==
+  </chunk>
+   <chunk x="32" y="0" width="16" height="16">
+   NAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AAAAAgAAAAIAAABYAAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAACoAAAArAAAADQAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANQAAAA0AAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAACwAAAA0AAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAACwAAADMAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAAAsAAAAzAAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA1AAAAMwAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAACwAAAA0AAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADUAAAAzAAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAALAAAADQAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="-32" y="16" width="16" height="16">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA1AAAADQAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAACwAAAF8AAAACAAAAPgAAAD4AAAACAAAAPgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAAGEAAAAWAAAAFgAAACoAAAAqAAAAFgAAACoAAAAWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="-16" y="16" width="16" height="16">
+   NAAAADUAAAANAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAIAAABgAAAAPQAAAD4AAAACAAAAPgAAAD4AAAACAAAAAgAAAAIAAAA+AAAAAgAAAAIAAAA+AAAAPgAAAAIAAAAWAAAAKgAAACoAAAAWAAAAKgAAACoAAAAqAAAAKgAAABYAAAAqAAAAFgAAACoAAAAWAAAAFgAAABYAAAAWAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="0" y="16" width="16" height="16">
+   NQAAADMAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANQAAAD0AAAACAAAAAgAAAGAAAAA9AAAAAgAAAAIAAAACAAAAAgAAAAIAAAA+AAAAAgAAAD4AAAACAAAAAgAAAD8AAABVAAAAKgAAABYAAAAWAAAAFgAAABYAAAAWAAAAFgAAACoAAAAWAAAAFgAAACoAAAAWAAAAKgAAACoAAAAWAAAAYgAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="16" y="16" width="16" height="16">
+   AgAAAAIAAAA+AAAAPgAAAAIAAAACAAAAAgAAAD4AAAA+AAAAPgAAAD4AAAACAAAAPgAAAD4AAAACAAAAAgAAABYAAAAWAAAAKgAAABYAAAAqAAAAFgAAABYAAAAqAAAAKgAAACoAAAAqAAAAFgAAACoAAAAWAAAAFgAAACoAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+   <chunk x="32" y="16" width="16" height="16">
+   PgAAAAIAAAA/AAAADQAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACoAAAAWAAAAFgAAAGIAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQAAAA0AAAANAAAADQAAAA0AAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </chunk>
+  </data>
+ </layer>
+</map>

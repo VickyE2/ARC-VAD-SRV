@@ -1,0 +1,9 @@
+{
+  "server_version": "BETA-1",
+
+  "server_data_format": "XML",
+  "sql_type": "MYSQL",
+  "server_version_name": "ARC-001",
+
+  "enable_logger_saving": true
+}

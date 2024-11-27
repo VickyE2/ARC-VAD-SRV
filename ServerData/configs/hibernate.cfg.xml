@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:./ServerData/databases/global.db</property>
+        <!-- Hibernate settings -->
+        <property name="hibernate.dialect">ocom.github.gwenn.hibernate.dialect.SQLiteDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.FamilyRegistrar"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.FamilyRegistrar"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.User"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Shoe"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.TopCloth"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.AvailableStyles"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.EyelashStyles"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.HairStyles"/>
+        <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.PlayerFamily"/>
+
+    </session-factory>
+</hibernate-configuration>

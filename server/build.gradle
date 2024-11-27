@@ -1,10 +1,10 @@
 apply plugin: 'application'
 
 
-java.sourceCompatibility = 8
-java.targetCompatibility = 8
+java.sourceCompatibility = 22
+java.targetCompatibility = 22
 if (JavaVersion.current().isJava9Compatible()) {
-        compileJava.options.release.set(8)
+        compileJava.options.release.set(22)
 }
 
 mainClassName = 'com.arcvad.schoolquest.server.server.ARCServer'
@@ -13,17 +13,42 @@ eclipse.project.name = appName + '-server'
 
 dependencies {
   implementation 'org.java-websocket:Java-WebSocket:1.5.2'
+
   implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
-  implementation "javax.xml.bind:jaxb-api:2.3.0"
-  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
-  implementation 'com.sun.xml.bind:jaxb-impl:2.3.3'
   implementation 'org.spongepowered:configurate-yaml:4.1.2'
   implementation 'org.spongepowered:configurate-jackson:4.1.2'
   implementation 'org.spongepowered:configurate-xml:4.1.2'
+  implementation 'com.google.code.gson:gson:2.10.1'
+
+  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+  implementation 'org.hibernate:hibernate-core:6.3.1.Final'
+
+  implementation 'mysql:mysql-connector-java:8.0.33'
+  implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
+
+  implementation 'info.picocli:picocli:4.7.6'
+  annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+  implementation 'org.jline:jline:3.21.0'
+  implementation 'info.picocli:picocli:4.7.1'
+  implementation 'info.picocli:picocli-shell-jline3:4.7.1'
+
+  implementation 'org.hibernate.orm:hibernate-community-dialects:6.4.1.Final'
+
+  runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.2'
+
+  implementation 'org.slf4j:slf4j-api:2.0.9'
+  implementation 'org.slf4j:slf4j-simple:2.0.9'
+
+  implementation 'javax.persistence:javax.persistence-api:2.2'
+}
+
+compileJava {
+  options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }
 
 jar {
-  archiveBaseName.set(appName)
+  archiveBaseName.set('ArcVAD-SchoolQuest-Server')
+  archiveVersion.set('0.0.1-BETA') // Resolves correctly
 // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
@@ -45,4 +70,12 @@ jar {
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.
 task dist(dependsOn: [jar]) {
+}
+
+tasks.withType(JavaCompile).configureEach {
+  options.compilerArgs += ["--enable-preview"]
+}
+
+tasks.withType(JavaExec).configureEach {
+  jvmArgs += "--enable-preview"
 }
