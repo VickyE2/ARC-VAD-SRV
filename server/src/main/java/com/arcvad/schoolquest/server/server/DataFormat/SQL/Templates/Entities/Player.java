@@ -1,6 +1,6 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities;
 
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.PlayerFamily;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Shoe;
@@ -25,39 +25,43 @@ public class Player {
     @Column(name = "eyelash_type")
     private Styles.EyelashStyles eyeLashType;
 
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "r", column = @Column(name = "eyelash_hue_r")),
-        @AttributeOverride(name = "g", column = @Column(name = "eyelash_hue_g")),
-        @AttributeOverride(name = "b", column = @Column(name = "eyelash_hue_b"))
-    })
-    private Color eyeLashHue;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "hair_type")
     private Styles.HairStyles hairType;
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "r", column = @Column(name = "hair_hue_r")),
-        @AttributeOverride(name = "g", column = @Column(name = "hair_hue_g")),
-        @AttributeOverride(name = "b", column = @Column(name = "hair_hue_b"))
+        @AttributeOverride(name = "red", column = @Column(name = "eyelash_hue_r")),
+        @AttributeOverride(name = "green", column = @Column(name = "eyelash_hue_g")),
+        @AttributeOverride(name = "blue", column = @Column(name = "eyelash_hue_b")),
+        @AttributeOverride(name = "alpha", column = @Column(name = "eyelash_hue_alpha")) // Add this line
+    })
+    private Color eyeLashHue;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "red", column = @Column(name = "hair_hue_r")),
+        @AttributeOverride(name = "green", column = @Column(name = "hair_hue_g")),
+        @AttributeOverride(name = "blue", column = @Column(name = "hair_hue_b")),
+        @AttributeOverride(name = "alpha", column = @Column(name = "hair_hue_alpha")) // Add this line
     })
     private Color hairHue;
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "r", column = @Column(name = "iris_hue_r")),
-        @AttributeOverride(name = "g", column = @Column(name = "iris_hue_g")),
-        @AttributeOverride(name = "b", column = @Column(name = "iris_hue_b"))
+        @AttributeOverride(name = "red", column = @Column(name = "iris_hue_r")),
+        @AttributeOverride(name = "green", column = @Column(name = "iris_hue_g")),
+        @AttributeOverride(name = "blue", column = @Column(name = "iris_hue_b")),
+        @AttributeOverride(name = "alpha", column = @Column(name = "iris_hue_alpha")) // Add this line
     })
     private Color irisHue;
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "r", column = @Column(name = "skin_hue_r")),
-        @AttributeOverride(name = "g", column = @Column(name = "skin_hue_g")),
-        @AttributeOverride(name = "b", column = @Column(name = "skin_hue_b"))
+        @AttributeOverride(name = "red", column = @Column(name = "skin_hue_r")),
+        @AttributeOverride(name = "green", column = @Column(name = "skin_hue_g")),
+        @AttributeOverride(name = "blue", column = @Column(name = "skin_hue_b")),
+        @AttributeOverride(name = "alpha", column = @Column(name = "skin_hue_alpha")) // Add this line
     })
     private Color skinHue;
 
@@ -73,8 +77,17 @@ public class Player {
     @JoinColumn(name = "current_shoe_id")
     private Shoe currentShoe;
 
+    /*
     @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "player_family", column = @Column(name = "player_family_field"))
+    })
     private PlayerFamily family;
+     */
+
+    @ManyToOne
+    @JoinColumn(name = "family_id", nullable = false) // Specify the foreign key column
+    private Family family;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
@@ -196,11 +209,11 @@ public class Player {
         this.currentShoe = currentShoe;
     }
 
-    public PlayerFamily getFamily() {
+    public Family getFamily() {
         return family;
     }
 
-    public void setFamily(PlayerFamily family) {
+    public void setFamily(Family family) {
         this.family = family;
     }
 

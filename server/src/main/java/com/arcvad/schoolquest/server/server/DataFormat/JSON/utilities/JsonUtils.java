@@ -1,22 +1,21 @@
-package com.arcvad.schoolquest.server.server.DataFormat.XML.utilities;
+package com.arcvad.schoolquest.server.server.DataFormat.JSON.utilities;
 
 import com.arcvad.schoolquest.server.server.ARCServer;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.Player;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.PlayerRegistrar;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.User;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.Accessory.Accessory;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.BottomCloth.BottomCloth;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.Shoe.Shoe;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.Shoe.Shoes;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.TopCloth.TopCloth;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.XmlConfigManager;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.JsonConfigManager;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Entities.Player;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Entities.PlayerRegistrar;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Entities.User;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.Accessory.Accessory;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.BottomCloth.BottomCloth;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.Shoe.Shoe;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.TopCloth.TopCloth;
 import com.arcvad.schoolquest.server.server.Playerutils.Genders;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.xml.bind.JAXBException;
 import org.java_websocket.WebSocket;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ import java.util.regex.Pattern;
 
 import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
 
-public class XmlUtils {
+public class JsonUtils {
 
     public static void handleRequestUser(WebSocket conn, String message) {
         logger.info("ARC-SOCKET", "Received player request packet...");
@@ -52,14 +51,14 @@ public class XmlUtils {
             password = matcher.group(2);
 
             try {
-                XmlConfigManager manager = new XmlConfigManager(PlayerRegistrar.class);
+                JsonConfigManager manager = new JsonConfigManager();
                 Map<String, Object> combinedAttributes = new HashMap<>();
-                List<User> users = manager.loadFromXML("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
+                List<User> users = manager.loadFromJSON("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
 
                 for (User user : users) {
                     if (user.getEmail().equals(player)) {
                         if (user.getPassword().equals(password)) {
-                            Player registeredPlayer = manager.loadFromXML("./ServerData/XML/Users/" + player + ".xml", Player.class);
+                            Player registeredPlayer = manager.loadFromJSON("./ServerData/XML/Users/" + player + ".xml", Player.class);
                             combinedAttributes.put("username", user.getUsername());
                             combinedAttributes.put("password", user.getPassword());
                             combinedAttributes.put("email", user.getEmail());
@@ -112,7 +111,7 @@ public class XmlUtils {
                     }
                 }
 
-            } catch (JAXBException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             //how to convert string to boolean
@@ -146,8 +145,8 @@ public class XmlUtils {
             gender = Genders.valueOf(matcher.group(6));
 
             try {
-                XmlConfigManager manager = new XmlConfigManager(Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Shoe.class, Accessory.class);
-                List<User> users = manager.loadFromXML("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
+                JsonConfigManager manager = new JsonConfigManager();
+                List<User> users = manager.loadFromJSON("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
 
                 // Check if username or email already exists
                 boolean usernameExists = false;
@@ -176,12 +175,12 @@ public class XmlUtils {
                         try {
                             Thread.sleep(500);
                             // Reload user data after creation
-                            List<User> savedUsers = manager.loadFromXML("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
+                            List<User> savedUsers = manager.loadFromJSON("./ServerData/XML/registeredUsers.xml", PlayerRegistrar.class).getUsers();
                             boolean foundUser = false;
 
                             for (User user : savedUsers) {
                                 if (user.getUsername().equals(username)) {
-                                    Player registeredPlayer = manager.loadFromXML("./ServerData/XML/Users/" + username + ".xml", Player.class);
+                                    Player registeredPlayer = manager.loadFromJSON("./ServerData/XML/Users/" + username + ".xml", Player.class);
 
                                     // Combine user and player attributes
                                     combinedAttributes.put("username", user.getUsername());
@@ -238,14 +237,14 @@ public class XmlUtils {
                                 logger.error("ARC-SOCKET", "yellow[Username " + username + " not found in registered_users.xml]");
                                 conn.send("createdP:false:Exception gotten from server end");
                             }
-                        } catch (JAXBException | InterruptedException e) {
+                        } catch (IOException | InterruptedException e) {
                             throw new RuntimeException(e);
                         }
                     } else {
                         conn.send("createdP:false:Server failed to create player...Please try again later. If issue persists report this to a server admin");
                     }
                 }
-            } catch (JAXBException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 

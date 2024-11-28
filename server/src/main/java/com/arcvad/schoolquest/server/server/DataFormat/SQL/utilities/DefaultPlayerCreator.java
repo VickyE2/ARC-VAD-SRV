@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultPlayerCreator {
-    public static Player createDefaultUser() {
+    public static Player createDefaultUser(HibernateDatabaseManager databaseManager) {
         Player player = new Player();
         FamilyRegistrar registrar = new FamilyRegistrar();
 
@@ -38,6 +38,8 @@ public class DefaultPlayerCreator {
             family.setFamilyWealth(familyWealth);
         }
 
+        databaseManager.saveEntity(family);
+
         PlayerFamily playerFamily = new PlayerFamily(family);
         playerFamily.setFamilyPosition(family.getFamilyMembers().size());
 
@@ -46,7 +48,7 @@ public class DefaultPlayerCreator {
         Shoe shoe = createDefaultShoe("def");
 
         player.setId("test-user");
-        player.setFamily(playerFamily);
+        player.setFamily(family);
         player.setIrisHue(new Color(0, 0, 0, 100));
         player.setSkinHue(new Color(0, 0, 0, 100));
         player.setHairHue(new Color(0, 0, 0, 100));
@@ -72,7 +74,7 @@ public class DefaultPlayerCreator {
         player.setCurrentTopCloth(topCloth);
         player.setCurrentShoe(shoe);
 
-        family.getFamilyMembers().add(player.getId());
+        family.getFamilyMembers().add(player);
         return player;
     }
 

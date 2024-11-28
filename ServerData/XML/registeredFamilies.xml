@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:familyRegistrar xmlns:ns3="families">
+    <families>
+        <family familyName="Akinyemi" familyWealth="RICH" familySize="400">
+            <familyMembers>
+                <familyMember username="test1-sync" firstname="Robo" lastname="Logic"/>
+            </familyMembers>
+        </family>
+        <family familyName="Dunard" familyWealth="AVERAGE" familySize="300">
+            <familyMembers>
+                <familyMember username="test1-async" firstname="Robo" lastname="Logic"/>
+            </familyMembers>
+        </family>
+        <family familyName="Ashcroft" familyWealth="SLIGHTLY_BELOW_AVERAGE" familySize="740">
+            <familyMembers>
+                <familyMember username="test1-sync" firstname="Robo" lastname="Logic"/>
+            </familyMembers>
+        </family>
+        <family familyName="Ademola" familyWealth="AVERAGE" familySize="660">
+            <familyMembers>
+                <familyMember username="test1-async" firstname="Robo" lastname="Logic"/>
+            </familyMembers>
+        </family>
+    </families>
+</ns3:familyRegistrar>

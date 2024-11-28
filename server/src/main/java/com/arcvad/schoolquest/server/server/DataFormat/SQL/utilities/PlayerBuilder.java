@@ -1,6 +1,6 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities;
 
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.PlayerFamily;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth;
@@ -23,7 +23,7 @@ public class PlayerBuilder {
     private TopCloth currentTopCloth;
     private BottomCloth currentBottomCloth;
     private Shoe currentShoe;
-    private PlayerFamily family;
+    private Family family;
     private List<Accessory> currentAccessories = new ArrayList<>();
     private List<TopCloth> collectedTopCloth = new ArrayList<>();
     private List<BottomCloth> collectedBottomCloth = new ArrayList<>();
@@ -80,7 +80,7 @@ public class PlayerBuilder {
         return this;
     }
 
-    public PlayerBuilder setFamily(PlayerFamily family) {
+    public PlayerBuilder setFamily(Family family) {
         this.family = family;
         return this;
     }

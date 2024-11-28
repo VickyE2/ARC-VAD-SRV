@@ -1,5 +1,6 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes;
 
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player;
 import com.arcvad.schoolquest.server.server.Playerutils.FamilyNames;
 import com.arcvad.schoolquest.server.server.Playerutils.Wealth;
 import jakarta.persistence.*;
@@ -26,7 +27,7 @@ public class Family {
     private int familySize;
 
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Object> familyMembers;
+    private List<Player> familyMembers;
 
     private FamilyNames familyNames;
 
@@ -71,11 +72,11 @@ public class Family {
         this.familySize = family.getFamilySize();
     }
 
-    public List<Object> getFamilyMembers() {
+    public List<Player> getFamilyMembers() {
         return familyMembers;
     }
 
-    public void setFamilyMembers(List<Object> familyMembers) {
+    public void setFamilyMembers(List<Player> familyMembers) {
         this.familyMembers = familyMembers;
     }
 }

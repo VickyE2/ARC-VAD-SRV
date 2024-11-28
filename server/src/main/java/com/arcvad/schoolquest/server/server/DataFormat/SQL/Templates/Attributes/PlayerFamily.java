@@ -1,20 +1,19 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes;
 
 import com.arcvad.schoolquest.server.server.Playerutils.Wealth;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
-@Entity
-@Table(name = "player_families")
+@Embeddable
 public class PlayerFamily {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "family_name", nullable = false)
     private String familyName;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
+    @Column(name = "family_wealth", nullable = false)
     private Wealth familyWealth;
 
     @Column(name = "family_position")

@@ -1,9 +1,14 @@
 {
   "server_version": "BETA-1",
-
-  "server_data_format": "XML",
-  "sql_type": "MYSQL",
   "server_version_name": "ARC-001",
+  "enable_logger_saving": true,
 
-  "enable_logger_saving": true
+
+
+
+  "_comment": "PLEASE DON'T GO BEYOND THIS POINT...",
+  "server_data_format": "XML",
+  "sql_type": "SQLITE",
+  "former_data_format": "XML"
+
 }

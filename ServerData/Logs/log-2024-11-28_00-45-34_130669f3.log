@@ -1,0 +1,16 @@
+[2024-11-28 00:45:34] [ARC-MAIN] INFO :  ARC-SERVER is starting.... 
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Using provided registrar found at default location
+[2024-11-28 00:45:34] [ARC-JSON] INFO : No registrar found. Creating new registrar
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredFamilies.json
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredMaterials.json
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredUsers.json
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/Users/test1-sync.json
+[2024-11-28 00:45:34] [ARC-JSON] INFO : Using provided registrar found at default location
+[2024-11-28 00:45:34] [ARC-JSON] INFO : No registrar found. Creating new registrar
+[2024-11-28 00:45:35] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredFamilies.json
+[2024-11-28 00:45:35] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredMaterials.json
+[2024-11-28 00:45:35] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/registeredUsers.json
+[2024-11-28 00:45:35] [ARC-JSON] INFO : Object saved to JSON at: ./ServerData/JSON/Users/test1-async.json
+[2024-11-28 00:45:35] [ARC-USER] INFO : Default asynchronous and synchronous users were created and saved.
+[2024-11-28 00:45:35] [ARC-SOCKET] INFO : Server started successfully...
+[2024-11-28 00:45:35] [ARC-SOCKET] INFO :  Server started on port:  55489   with ip:  0.0.0.0/0.0.0.0:55489  

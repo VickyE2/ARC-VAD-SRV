@@ -1,8 +1,11 @@
 package com.arcvad.schoolquest.server.server;
 
 import com.arcvad.schoolquest.server.server.Commands.CommandManager;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.JsonConfigManager;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.utilities.JsonUtils;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.SQLManager;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities.HibernateDatabaseManager;
+import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Attributes.MaterialRegistrar;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.Player;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.PlayerRegistrar;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.User;
@@ -12,6 +15,7 @@ import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.S
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.TopCloth.TopCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.XmlConfigManager;
 import com.arcvad.schoolquest.server.server.GlobalUtils.AnsiLogger;
+import com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities;
 import com.arcvad.schoolquest.server.server.Playerutils.Genders;
 import jakarta.xml.bind.JAXBException;
 import org.java_websocket.WebSocket;
@@ -35,8 +39,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities.DefaultPlayerCreator.createDefaultUser;
 import static com.arcvad.schoolquest.server.server.DataFormat.XML.utilities.XmlUtils.*;
 import static com.arcvad.schoolquest.server.server.GlobalUtils.Config.getConfigValue;
-import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
-import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.running;
+import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.*;
 
 @SuppressWarnings({"preview"})
 public class ARCServer extends WebSocketServer {
@@ -220,23 +223,34 @@ public class ARCServer extends WebSocketServer {
             );
             logger.info("ARC-MAIN", "purple[ARC-SERVER is starting....]");
 
-            if (server_data_format.equals("XML")) {
-                XmlConfigManager xmlConfigManager = new XmlConfigManager(Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Accessory.class);
+            if (server_data_format.equalsIgnoreCase("XML")) {
+                XmlConfigManager xmlConfigManager = new XmlConfigManager(Player.class, MaterialRegistrar.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Accessory.class);
 
-                boolean isCreatedSYNC = xmlConfigManager.createUser("test1-sync", "onlyifyouknewwhatitwas009!&", "testuser-async@test.com", "Robo", "Logic", Genders.MALE);
+                boolean isCreatedSYNC = xmlConfigManager.createUser("test1-sync", "onlyifyouknewwhatitwas009!&", "testuser-sync@test.com", "Robo", "Logic", Genders.MALE);
                 AtomicBoolean isAsyncCreated = new AtomicBoolean(false);
                 xmlConfigManager.createUserAsync("test1-async", "onlyifyouknewwhatitwas009!&", "testuser-async@test.com", "Robo", "Logic", Genders.MALE, (success) -> {
                     isAsyncCreated.set(success);
                     checkResults(isAsyncCreated.get(), isCreatedSYNC);
                 });
-            }else if(server_data_format.equals("SQL")){
+            }
+            else if(server_data_format.equalsIgnoreCase("JSON")){
+                JsonConfigManager jsonConfigManager = new JsonConfigManager();
+
+                boolean isCreatedSYNC = jsonConfigManager.createUser("test1-sync", "onlyifyouknewwhatitwas009!&", "testuser-sync@test.com", "Robo", "Logic", Genders.MALE);
+                AtomicBoolean isAsyncCreated = new AtomicBoolean(false);
+                jsonConfigManager.createUserAsync("test1-async", "onlyifyouknewwhatitwas009!&", "testuser-async@test.com", "Robo", "Logic", Genders.MALE, (success) -> {
+                    isAsyncCreated.set(success);
+                    JsonUtils.checkResults(isAsyncCreated.get(), isCreatedSYNC);
+                });
+            }
+            else if(server_data_format.equalsIgnoreCase("SQL")){
                 SQLManager.createDatabase();
 
-                HibernateDatabaseManager databaseManager = new HibernateDatabaseManager();
+                databaseManager = new HibernateDatabaseManager();
                 com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player player;
 
                 if (!databaseManager.entityExists(com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player.class, "test-user")){
-                    player = createDefaultUser();
+                    player = createDefaultUser(databaseManager);
                     databaseManager.saveEntity(player);
                     logger.info("ARC-SQL", "Created and saved defaut user");
                 }else{
@@ -245,8 +259,8 @@ public class ARCServer extends WebSocketServer {
             }
 
             int port = 55489;
-            ARCServer server = new ARCServer(new InetSocketAddress(port));
-            server.start();
+            GlobalUtilities.server = new ARCServer(new InetSocketAddress(port));
+            GlobalUtilities.server.start();
             CommandLine cmd = new CommandLine(new CommandManager());
             Terminal terminal = TerminalBuilder.builder()
                 .color(false)
@@ -258,8 +272,8 @@ public class ARCServer extends WebSocketServer {
                 .build();
 
             Thread serverThread = new Thread(() -> {
+                logger.info("ARC-SOCKET", StringTemplate.STR."green[Server started on port:]yellow[underline[\{port}]]green[with ip:]yellow[underline[\{GlobalUtilities.server.getAddress()}]]");
                 System.out.println("Server is running...");
-                logger.info("ARC-SOCKET", StringTemplate.STR."green[Server started on port:]yellow[underline[\{port}]]green[with ip:]yellow[underline[\{server.getAddress()}]]");
             });
             serverThread.start();
 

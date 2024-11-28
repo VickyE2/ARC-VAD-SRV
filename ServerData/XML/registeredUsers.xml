@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:playerRegistrar xmlns:ns4="player">
+    <users>
+        <user email="testuser-sync@test.com" firstname="Robo" lastname="Logic" password="onlyifyouknewwhatitwas009!&amp;" username="test1-sync" gender="MALE"/>
+        <user email="testuser-async@test.com" firstname="Robo" lastname="Logic" password="onlyifyouknewwhatitwas009!&amp;" username="test1-async" gender="MALE"/>
+    </users>
+    <createdDefault>false</createdDefault>
+</ns4:playerRegistrar>

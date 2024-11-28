@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:materialRegistrar xmlns:ns2="registrar">
+    <bottomClothList key="s_def_m" material="CHINOS" rarity="COMMON"/>
+    <bottomClothList key="s_alt_m" material="JEANS" rarity="COMMON"/>
+    <bottomClothList key="s_def_m" material="CHINOS" rarity="COMMON"/>
+    <bottomClothList key="s_alt_m" material="JEANS" rarity="COMMON"/>
+    <bottomClothList key="s_def_m" material="CHINOS" rarity="COMMON"/>
+    <bottomClothList key="s_alt_m" material="JEANS" rarity="COMMON"/>
+    <bottomClothList key="s_def_m" material="CHINOS" rarity="COMMON"/>
+    <bottomClothList key="s_alt_m" material="JEANS" rarity="COMMON"/>
+    <topClothList key="s_def_m" material="POLYESTER" rarity="COMMON"/>
+    <topClothList key="s_alt_m" material="WOOL" rarity="COMMON"/>
+    <topClothList key="s_def_m" material="POLYESTER" rarity="COMMON"/>
+    <topClothList key="s_alt_m" material="WOOL" rarity="COMMON"/>
+    <topClothList key="s_def_m" material="POLYESTER" rarity="COMMON"/>
+    <topClothList key="s_alt_m" material="WOOL" rarity="COMMON"/>
+    <topClothList key="s_def_m" material="POLYESTER" rarity="COMMON"/>
+    <topClothList key="s_alt_m" material="WOOL" rarity="COMMON"/>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+    <shoesList>
+        <shoe key="s_def_u" material="LEATHER" rarity="COMMON"/>
+    </shoesList>
+</ns2:materialRegistrar>

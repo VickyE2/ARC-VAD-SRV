@@ -1,19 +1,19 @@
-package com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Attributes;
+package com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Attributes;
 
-import com.arcvad.schoolquest.server.server.DataFormat.XML.utilities.BaseTemplate;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.utilities.BaseTemplate;
 import com.arcvad.schoolquest.server.server.Playerutils.Wealth;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlTransient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PlayerFamily extends BaseTemplate {
-    @XmlElement(name = "familyName")
+    @JsonProperty("familyName")
     private String familyName;
-    @XmlElement(name="familyWealth")
+    @JsonProperty("familyWealth")
     private Wealth familyWealth;
-    @XmlElement(name="familyPosition")
+    @JsonProperty("familyPosition")
     private int familyPosition;
 
-    @XmlTransient
+    @JsonIgnore
     private Family family;
 
     // Constructor, getters, and setters
@@ -24,17 +24,17 @@ public class PlayerFamily extends BaseTemplate {
     }
 
     public PlayerFamily() {}
-    @XmlTransient
+    @JsonIgnore
     public String getFamilyName() {
         return familyName;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public Wealth getFamilyWealth() {
         return familyWealth;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public int getFamilyPosition() {
         return familyPosition;
     }
@@ -43,7 +43,7 @@ public class PlayerFamily extends BaseTemplate {
         this.familyPosition = familyPosition;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public Family getFamily(){
         return this.family;
     }

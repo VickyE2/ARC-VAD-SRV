@@ -1,0 +1,118 @@
+{
+  "bottomClothList" : [ {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  } ],
+  "topClothList" : [ {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  } ],
+  "shoesList" : [ {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "CANVAS",
+      "key" : "s_alt_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  }, {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "CANVAS",
+      "key" : "s_alt_u"
+    }
+  } ],
+  "accessoryList" : [ ]
+}

@@ -116,8 +116,8 @@ public class SQLManager {
                             <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory"/>
                             <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family"/>
                             <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.AvailableStyles"/>
-                            <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.EyelashStyles"/>
-                            <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.HairStyles"/>
+                            <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.EyelashStyle"/>
+                            <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.HairStyle"/>
                             <mapping class="com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.PlayerFamily"/>
 
                     """)

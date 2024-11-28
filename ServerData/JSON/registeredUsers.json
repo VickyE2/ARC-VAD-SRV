@@ -1,0 +1,18 @@
+{
+  "createdDefault" : false,
+  "user" : [ {
+    "email" : "testuser-sync@test.com",
+    "firstname" : "Robo",
+    "lastname" : "Logic",
+    "password" : "onlyifyouknewwhatitwas009!&",
+    "username" : "test1-sync",
+    "gender" : "MALE"
+  }, {
+    "email" : "testuser-async@test.com",
+    "firstname" : "Robo",
+    "lastname" : "Logic",
+    "password" : "onlyifyouknewwhatitwas009!&",
+    "username" : "test1-async",
+    "gender" : "MALE"
+  } ]
+}

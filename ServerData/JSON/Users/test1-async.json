@@ -1,0 +1,155 @@
+{
+  "eyeLashType" : "DEFAULT",
+  "eyeLashHue" : {
+    "red" : 0,
+    "green" : 0,
+    "blue" : 0,
+    "alpha" : 100
+  },
+  "hairType" : "DEFAULT",
+  "hairHue" : {
+    "red" : 0,
+    "green" : 0,
+    "blue" : 0,
+    "alpha" : 100
+  },
+  "irisHue" : {
+    "red" : 0,
+    "green" : 0,
+    "blue" : 0,
+    "alpha" : 100
+  },
+  "skinHue" : {
+    "red" : 0,
+    "green" : 0,
+    "blue" : 0,
+    "alpha" : 100
+  },
+  "currentTopCloth" : {
+    "topCloth" : {
+      "rarity" : "COMMON",
+      "material" : "POLYESTER",
+      "key" : "t_def_m"
+    }
+  },
+  "currentBottomCloth" : {
+    "bottomCloth" : {
+      "rarity" : "COMMON",
+      "material" : "CHINOS",
+      "key" : "c_def_m"
+    }
+  },
+  "currentShoe" : {
+    "shoe" : {
+      "rarity" : "COMMON",
+      "material" : "LEATHER",
+      "key" : "s_def_u"
+    }
+  },
+  "family" : {
+    "familyName" : "Ogunyemi",
+    "familyWealth" : "SLIGHTLY_ABOVE_AVERAGE",
+    "familyPosition" : 1
+  },
+  "collectedAccessories" : [ ],
+  "accessory" : [ ],
+  "topCloth" : [ {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "POLYESTER",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "WOOL",
+    "key" : "s_alt_m"
+  } ],
+  "bottomCloth" : [ {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CHINOS",
+    "key" : "s_def_m"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "JEANS",
+    "key" : "s_alt_m"
+  } ],
+  "shoe" : [ {
+    "rarity" : "COMMON",
+    "material" : "LEATHER",
+    "key" : "s_def_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CANVAS",
+    "key" : "s_alt_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "LEATHER",
+    "key" : "s_def_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CANVAS",
+    "key" : "s_alt_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "LEATHER",
+    "key" : "s_def_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CANVAS",
+    "key" : "s_alt_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "LEATHER",
+    "key" : "s_def_u"
+  }, {
+    "rarity" : "COMMON",
+    "material" : "CANVAS",
+    "key" : "s_alt_u"
+  } ]
+}
