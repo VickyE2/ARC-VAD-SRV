@@ -1,20 +1,9 @@
 package com.arcvad.schoolquest.server.server;
 
 import com.arcvad.schoolquest.server.server.Commands.CommandManager;
-import com.arcvad.schoolquest.server.server.DataFormat.JSON.JsonConfigManager;
-import com.arcvad.schoolquest.server.server.DataFormat.JSON.utilities.JsonUtils;
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.SQLManager;
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities.HibernateDatabaseManager;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Attributes.MaterialRegistrar;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.Player;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.PlayerRegistrar;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Entities.User;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.Accessory.Accessory;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.BottomCloth.BottomCloth;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.Shoe.Shoes;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.TopCloth.TopCloth;
-import com.arcvad.schoolquest.server.server.DataFormat.XML.XmlConfigManager;
 import com.arcvad.schoolquest.server.server.GlobalUtils.AnsiLogger;
+import com.arcvad.schoolquest.server.server.GlobalUtils.Entiies.PlayerCreator;
+import com.arcvad.schoolquest.server.server.GlobalUtils.Entiies.TransactionUser;
 import com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities;
 import com.arcvad.schoolquest.server.server.Playerutils.Genders;
 import jakarta.xml.bind.JAXBException;
@@ -34,12 +23,12 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import static com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities.DefaultPlayerCreator.createDefaultUser;
-import static com.arcvad.schoolquest.server.server.DataFormat.XML.utilities.XmlUtils.*;
 import static com.arcvad.schoolquest.server.server.GlobalUtils.Config.getConfigValue;
-import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.*;
+import static com.arcvad.schoolquest.server.server.GlobalUtils.DataTypeHandler.handlePlayerRegistration;
+import static com.arcvad.schoolquest.server.server.GlobalUtils.DataTypeHandler.handlePlayerRequest;
+import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
+import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.running;
 
 @SuppressWarnings({"preview"})
 public class ARCServer extends WebSocketServer {
@@ -164,8 +153,11 @@ public class ARCServer extends WebSocketServer {
     public void onMessage(WebSocket conn, String message) {
         CompletableFuture.runAsync(() -> {
             System.out.println(STR."Received request: \{message} from client: \{conn}");
-            if (message.equals("RequestMap")) {
-                sendInputStreamInChunks(conn, mapInputStream);
+            if (message.contains("RequestStream:")) {
+                String newMessage = message.replace("Request:", "");
+                if (newMessage.equalsIgnoreCase("map")){
+                    sendInputStreamInChunks(conn, mapInputStream);
+                }
             }
             if (message.startsWith("Movement:")) {
                 handleMovementBroadcast(conn, message);
@@ -174,10 +166,14 @@ public class ARCServer extends WebSocketServer {
                 conn.send("Im all good :]");
             }
             if (message.contains("requestUser")) {
-                handleRequestUser(conn, message);
+                handlePlayerRequest(conn, message);
             }
             if (message.startsWith("registerUser->")) {
-                handleRegisterUser(conn, message);
+                try {
+                    handlePlayerRegistration(conn, message);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             } else if (message.equals("ping")) {
                 conn.send("PING");
             }
@@ -212,49 +208,66 @@ public class ARCServer extends WebSocketServer {
             logger.toast(
                 """
                     purple[
-                    ░█████╗░██████╗░░█████╗░░░░░░░░██████╗███████╗██████╗░██╗░░░██╗███████╗██████╗░
-                    ██╔══██╗██╔══██╗██╔══██╗░░░░░░██╔════╝██╔════╝██╔══██╗██║░░░██║██╔════╝██╔══██╗
-                    ███████║██████╔╝██║░░╚═╝█████╗╚█████╗░█████╗░░██████╔╝╚██╗░██╔╝█████╗░░██████╔╝
-                    ██╔══██║██╔══██╗██║░░██╗╚════╝░╚═══██╗██╔══╝░░██╔══██╗░╚████╔╝░██╔══╝░░██╔══██╗
-                    ██║░░██║██║░░██║╚█████╔╝░░░░░░██████╔╝███████╗██║░░██║░░╚██╔╝░░███████╗██║░░██║
-                    ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░░░░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
+                                ░█████╗░██████╗░░█████╗░░░░░░░░██████╗███████╗██████╗░██╗░░░██╗███████╗██████╗░
+                                ██╔══██╗██╔══██╗██╔══██╗░░░░░░██╔════╝██╔════╝██╔══██╗██║░░░██║██╔════╝██╔══██╗
+                                ███████║██████╔╝██║░░╚═╝█████╗╚█████╗░█████╗░░██████╔╝╚██╗░██╔╝█████╗░░██████╔╝
+                                ██╔══██║██╔══██╗██║░░██╗╚════╝░╚═══██╗██╔══╝░░██╔══██╗░╚████╔╝░██╔══╝░░██╔══██╗
+                                ██║░░██║██║░░██║╚█████╔╝░░░░░░██████╔╝███████╗██║░░██║░░╚██╔╝░░███████╗██║░░██║
+                                ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░░░░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
                     ]
                     """
             );
             logger.info("ARC-MAIN", "purple[ARC-SERVER is starting....]");
 
             if (server_data_format.equalsIgnoreCase("XML")) {
-                XmlConfigManager xmlConfigManager = new XmlConfigManager(Player.class, MaterialRegistrar.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Accessory.class);
-
-                boolean isCreatedSYNC = xmlConfigManager.createUser("test1-sync", "onlyifyouknewwhatitwas009!&", "testuser-sync@test.com", "Robo", "Logic", Genders.MALE);
-                AtomicBoolean isAsyncCreated = new AtomicBoolean(false);
-                xmlConfigManager.createUserAsync("test1-async", "onlyifyouknewwhatitwas009!&", "testuser-async@test.com", "Robo", "Logic", Genders.MALE, (success) -> {
-                    isAsyncCreated.set(success);
-                    checkResults(isAsyncCreated.get(), isCreatedSYNC);
-                });
+                TransactionUser testUser1 =
+                    new TransactionUser.TransactionUserBuilder()
+                        .setEmail("test_transactionUser1_xml@test.com")
+                        .setFirstname("RoverX")
+                        .setLastname("Logic")
+                        .setGender(Genders.MALE)
+                        .setUsername("test_user1_xml")
+                        .setPassword("0n!y!fIw0uldt3lly0u{-}")
+                        .build();
+                boolean isSuccessful = PlayerCreator.createXMLPlayer(testUser1);
+                if (isSuccessful){
+                    logger.success("ARC-XML", "Created and saved defaut user");
+                }else {
+                    logger.error("ARC-XML", "Failed to create test user. Check logs.");
+                }
             }
             else if(server_data_format.equalsIgnoreCase("JSON")){
-                JsonConfigManager jsonConfigManager = new JsonConfigManager();
-
-                boolean isCreatedSYNC = jsonConfigManager.createUser("test1-sync", "onlyifyouknewwhatitwas009!&", "testuser-sync@test.com", "Robo", "Logic", Genders.MALE);
-                AtomicBoolean isAsyncCreated = new AtomicBoolean(false);
-                jsonConfigManager.createUserAsync("test1-async", "onlyifyouknewwhatitwas009!&", "testuser-async@test.com", "Robo", "Logic", Genders.MALE, (success) -> {
-                    isAsyncCreated.set(success);
-                    JsonUtils.checkResults(isAsyncCreated.get(), isCreatedSYNC);
-                });
+                TransactionUser testUser1 =
+                    new TransactionUser.TransactionUserBuilder()
+                        .setEmail("test_transactionUser1_json@test.com")
+                        .setFirstname("RoverJ")
+                        .setLastname("Logic")
+                        .setGender(Genders.MALE)
+                        .setUsername("test_user1_json")
+                        .setPassword("0n!y!fIw0uldt3lly0u{-}")
+                        .build();
+                boolean isSuccessful = PlayerCreator.createJsonPlayer(testUser1);
+                if (isSuccessful){
+                    logger.success("ARC-JSON", "Created and saved defaut user");
+                }else {
+                    logger.error("ARC-JSON", "Failed to create test user. Check logs.");
+                }
             }
-            else if(server_data_format.equalsIgnoreCase("SQL")){
-                SQLManager.createDatabase();
-
-                databaseManager = new HibernateDatabaseManager();
-                com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player player;
-
-                if (!databaseManager.entityExists(com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player.class, "test-user")){
-                    player = createDefaultUser(databaseManager);
-                    databaseManager.saveEntity(player);
-                    logger.info("ARC-SQL", "Created and saved defaut user");
-                }else{
-                    logger.info("ARC-SQL", "Player already exists...");
+            else if(server_data_format.equalsIgnoreCase("SQL") || server_data_format.equalsIgnoreCase("SQLITE")){
+                TransactionUser testUser1 =
+                    new TransactionUser.TransactionUserBuilder()
+                        .setEmail("test_transactionUser1_sql@test.com")
+                        .setFirstname("RoverSQ")
+                        .setLastname("Logic")
+                        .setGender(Genders.MALE)
+                        .setUsername("test_user1_sql")
+                        .setPassword("0n!y!fIw0uldt3lly0u{-}")
+                        .build();
+                boolean isSuccessful = PlayerCreator.createSQLPlayer(testUser1);
+                if (isSuccessful){
+                    logger.success("ARC-SQL", "Created and saved defaut user");
+                }else {
+                    logger.error("ARC-SQL", "Failed to create test user. Check logs.");
                 }
             }
 
@@ -274,6 +287,11 @@ public class ARCServer extends WebSocketServer {
             Thread serverThread = new Thread(() -> {
                 logger.info("ARC-SOCKET", StringTemplate.STR."green[Server started on port:]yellow[underline[\{port}]]green[with ip:]yellow[underline[\{GlobalUtilities.server.getAddress()}]]");
                 System.out.println("Server is running...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             });
             serverThread.start();
 

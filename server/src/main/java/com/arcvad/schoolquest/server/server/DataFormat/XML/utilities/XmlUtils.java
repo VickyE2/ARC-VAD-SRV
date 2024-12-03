@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
 import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
 
 public class XmlUtils {
-
     public static void handleRequestUser(WebSocket conn, String message) {
         logger.info("ARC-SOCKET", "Received player request packet...");
 
@@ -104,11 +103,13 @@ public class XmlUtils {
                                 conn.send("playerDataResponse: null");
                             }
                         } else {
+                            conn.send("playerDataResponse:err->Wrong password");
                             logger.info("ARC-USER", "Tried to get User but password was wrong");
                         }
                     } else {
-                        conn.send("err");
+                        conn.send("playerDataResponse:err->Player dosent exist");
                         logger.warning("ARC-USER", StringTemplate.STR."Username \{player} not found in registered_users.xml");
+
                     }
                 }
 
@@ -120,7 +121,6 @@ public class XmlUtils {
             System.out.println("Failed to match pattern in message: " + message);
         }
     }
-
     public static void handleRegisterUser(WebSocket conn, String message) {
         logger.info("ARC-SOCKET", "Recieved player register request...");
 
@@ -250,20 +250,6 @@ public class XmlUtils {
             }
 
 
-        }
-    }
-
-    public static void checkResults(boolean isAsyncCreated, boolean isSyncCreated) {
-        if (isAsyncCreated && isSyncCreated) {
-            logger.info("ARC-USER", "Default asynchronous and synchronous users were created and saved.");
-        } else if (isAsyncCreated && !isSyncCreated) {
-            logger.warning("ARC-USER", "Default asynchronous user was created but failed to create sync user.");
-            logger.warning("ARC-USER", "There might be a server issue. check server logs.");
-        } else if (!isSyncCreated && isAsyncCreated) {
-            logger.warning("ARC-USER", "Default synchronous user was created but failed to create async user.");
-            logger.warning("ARC-USER", "There might be a server issue. check server logs.");
-        } else {
-            logger.warning("ARC-USER", "Failed to create both async and sync users. They might already exist or there might be a server issue. check server logs");
         }
     }
 }

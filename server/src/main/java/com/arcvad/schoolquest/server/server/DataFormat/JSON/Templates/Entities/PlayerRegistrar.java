@@ -36,6 +36,23 @@ public class PlayerRegistrar extends BaseTemplate implements Mergeable<PlayerReg
         return this.createdDefault;
     }
 
+    @JsonIgnore
+    public static User getUserByMinimal(PlayerRegistrar playerRegistrar, MinimalUser minimalUser) {
+        if (minimalUser == null || minimalUser.getUsername() == null) {
+            throw new IllegalArgumentException("MinimalUser or username cannot be null");
+        }
+
+        // Search for the User in the users list
+        for (User user : playerRegistrar.getUsers()) {
+            if (minimalUser.getUsername().equals(user.getUsername())) {
+                return user;
+            }
+        }
+
+        // If not found, return null or throw an exception depending on your requirements
+        return null; // Or throw new IllegalArgumentException("User not found");
+    }
+
     public boolean deleteUser(String username) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");

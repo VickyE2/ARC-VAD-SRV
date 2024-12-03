@@ -12,6 +12,7 @@ import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.S
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.TopCloth.TopCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.Templates.Wearables.TopCloth.TopClothes;
 import com.arcvad.schoolquest.server.server.DataFormat.XML.utilities.BaseTemplate;
+import com.arcvad.schoolquest.server.server.GlobalUtils.Entiies.TransactionUser;
 import com.arcvad.schoolquest.server.server.GlobalUtils.EnumRandomizer;
 import com.arcvad.schoolquest.server.server.GlobalUtils.Mergeable;
 import com.arcvad.schoolquest.server.server.Playerutils.*;
@@ -22,6 +23,8 @@ import jakarta.xml.bind.Marshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
@@ -90,32 +93,80 @@ public class XmlConfigManager {
         fileLock.lock();  // Ensure that only one thread is reading from the file at a time
         try {
             File file = new File(filePath);
-
             if (!file.exists()) {
+                logger.error("ARC-XML","XML file not found: " + file.getAbsolutePath());
                 return null;
             }
 
             JAXBContext context = JAXBContext.newInstance(clazz);
             return (T) context.createUnmarshaller().unmarshal(file);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log stack trace for debugging
+            return null;
         } finally {
             fileLock.unlock();  // Unlock the file after the operation is complete
         }
     }
 
+
     public void createUserAsync(String username, String password, String email,
                                 String firstname, String lastname, Genders gender,
                                 Consumer<Boolean> callback) {
+        logger.warning("ARC-XML", "Creation of users async has many issues and is not currently supported.");
         new Thread(() -> {
             boolean success = false;
             try {
                 success = createUser(username, password, email, firstname, lastname, gender);
             } catch (Exception e) {
-                logger.severe("ARC-XML", StringTemplate.STR."Error creating user asynchronously\{e}");
+                logger.severe("ARC-XML", StringTemplate.STR."Error creating user asynchronously \{e}");
             }
             callback.accept(success);  // Notify callback with the result (true or false)
         }).start();
     }
+    public boolean createUser(TransactionUser user) {
+        try {
+            PlayerRegistrar registrar = getOrCreateRegistrar();
 
+            String username = user.getUsername();
+            String password= user.getPassword();
+            String firstname = user.getFirstname();
+            String lastname = user.getLastname();
+            String email = user.getEmail();
+            Genders gender = user.getGender();
+
+            if (isDefaultUser(username)) {
+                // Check if the default user has already been created
+                if (registrar.isCreatedDefault()) {
+                    return false;  // Default user already exists, so skip creation
+                }
+
+                logger.info("ARC-XML", "Making the default user...");
+                User defaultUser = createUserObject(username, password, email, firstname, lastname, gender);
+                registrar.getUsers().add(defaultUser);
+                registrar.setCreatedDefault(true);
+
+                Player defaultPlayer = createPlayerObject(gender, defaultUser);
+                saveToXML(registrar, "./ServerData/XML/registeredUsers.xml");
+                saveToXML(defaultPlayer, "./ServerData/XML/Users/" + username + ".xml");
+
+                return true;
+            }
+
+            // For non-default users
+            User newUser = createUserObject(username, password, email, firstname, lastname, gender);
+            registrar.getUsers().add(newUser);
+
+            Player newPlayer = createPlayerObject(gender, newUser);
+            saveToXML(registrar, "./ServerData/XML/registeredUsers.xml");
+            saveToXML(newPlayer, "./ServerData/XML/Users/" + username + ".xml");
+
+            return true;
+
+        } catch (JAXBException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public boolean createUser(String username, String password, String email,
                               String firstname, String lastname, Genders gender) {
         try {
@@ -149,7 +200,7 @@ public class XmlConfigManager {
 
             return true;
 
-        } catch (JAXBException e) {
+        } catch (JAXBException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return false;
         }
@@ -168,7 +219,7 @@ public class XmlConfigManager {
     }
 
     private FamilyRegistrar getOrCreateFamilyRegistrar() throws JAXBException {
-        File registrarFile = new File("./Families/XML/registeredFamilies.xml");
+        File registrarFile = new File("./ServerData/XML/registeredFamilies.xml");
         if (registrarFile.exists()) {
             logger.info("ARC-XML", "Using provided family registrar found at def location");
             return loadFromXML(registrarFile.getPath(), FamilyRegistrar.class);
@@ -176,6 +227,49 @@ public class XmlConfigManager {
         logger.info("ARC-XML", "No registrar found. Creating new registrar");
         FamilyRegistrar newRegistrar = new FamilyRegistrar();
         newRegistrar.setFamilies(new ArrayList<>());
+        return newRegistrar;
+    }
+
+    private MaterialRegistrar getOrCreateMaterialRegistrar() throws JAXBException {
+        File registrarFile = new File("./ServerData/XML/registeredMaterials.xml");
+        if (registrarFile.exists()) {
+            logger.info("ARC-XML", "Using provided material registrar found at def location");
+            MaterialRegistrar registrar = loadFromXML(registrarFile.getPath(), MaterialRegistrar.class);
+            if (registrar.getAccessoryList() == null){
+                registrar.setAccessoryList(new ArrayList<>());
+            }
+            if (registrar.getBottomClothList() == null){
+                registrar.setBottomClothList(new ArrayList<>());
+            }
+            if (registrar.getShoesList() == null){
+                registrar.setShoesList(new ArrayList<>());
+            }
+            if (registrar.getTopClothList() == null){
+                registrar.setTopClothList(new ArrayList<>());
+            }
+            return registrar;
+        }
+        logger.info("ARC-XML", "No registrar found. Creating new registrar");
+        MaterialRegistrar newRegistrar = new MaterialRegistrar();
+        newRegistrar.setAccessoryList(new ArrayList<>());
+        newRegistrar.setBottomClothList(new ArrayList<>());
+        newRegistrar.setShoesList(new ArrayList<>());
+        newRegistrar.setTopClothList(new ArrayList<>());
+
+        newRegistrar.getTopClothList().add(createTopCloth(Genders.MALE, "def"));
+        newRegistrar.getTopClothList().add(createTopCloth(Genders.FEMALE, "def"));
+        newRegistrar.getTopClothList().add(createTopCloth(Genders.MALE, "alt"));
+        newRegistrar.getTopClothList().add(createTopCloth(Genders.FEMALE, "alt"));
+
+
+        newRegistrar.getBottomClothList().add(createBottomCloth(Genders.MALE, "def"));
+        newRegistrar.getBottomClothList().add(createBottomCloth(Genders.FEMALE, "def"));
+        newRegistrar.getBottomClothList().add(createBottomCloth(Genders.MALE, "alt"));
+        newRegistrar.getBottomClothList().add(createBottomCloth(Genders.FEMALE, "alt"));
+
+        newRegistrar.getShoesList().add(createShoe("def"));
+        newRegistrar.getShoesList().add(createShoe("alt"));
+
         return newRegistrar;
     }
 
@@ -195,32 +289,77 @@ public class XmlConfigManager {
         return user;
     }
 
-    private Player createPlayerObject(Genders gender, User user) throws JAXBException {
+    private Player createPlayerObject(Genders gender, User user) throws JAXBException, InterruptedException, ExecutionException {
         Player player = new Player();
 
-        // Create the main clothing items
-        TopClothes topCloth = createTopClothes(gender, "def");
-        BottomClothes bottomCloth = createBottomClothes(gender, "def");
-        Shoes shoes = createShoes("def");
+        MaterialRegistrar materialRegistrar = getOrCreateMaterialRegistrar();
 
         // Assign default clothing to the player
-        player.setUpperWear(topCloth);
-        player.setLowerWear(bottomCloth);
-        player.setFootwear(shoes);
+        player.setUpperWear(new TopClothes(
+            materialRegistrar.getTopClothList().stream()
+                .filter(topCloth -> topCloth.getKey().equals(STR."t_def_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                .findFirst()
+                .get()
+            )
+        );
+        player.setLowerWear(new BottomClothes(
+                materialRegistrar.getBottomClothList().stream()
+                    .filter(bottomCloth -> bottomCloth.getKey().equals(STR."c_def_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                    .findFirst()
+                    .get()
+            )
+        );
+        player.setFootwear(new Shoes(
+                materialRegistrar.getShoesList().stream()
+                    .filter(shoe -> shoe.getKey().equals("s_def_u"))
+                    .findFirst()
+                    .get()
+            )
+        );
 
         // Populate the collections with the shared instances
         player.setCollectedUpperWear(new ArrayList<>());
         player.setCollectedLowerWear(new ArrayList<>());
         player.setCollectedFootwear(new ArrayList<>());
 
-        player.getCollectedUpperWear().add(createTopCloth(gender, "def"));
-        player.getCollectedUpperWear().add(createTopCloth(gender, "alt"));
+        player.getCollectedUpperWear().add(
+            materialRegistrar.getTopClothList().stream()
+                .filter(topCloth -> topCloth.getKey().equals(STR."t_def_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                .findFirst()
+                .get()
+        );
+        player.getCollectedUpperWear().add(
+            materialRegistrar.getTopClothList().stream()
+                .filter(topCloth -> topCloth.getKey().equals(STR."t_alt_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                .findFirst()
+                .get()
+        );
 
-        player.getCollectedLowerWear().add(createBottomCloth(gender, "def"));
-        player.getCollectedLowerWear().add(createBottomCloth(gender, "alt"));
+        player.getCollectedLowerWear().add(
+            materialRegistrar.getBottomClothList().stream()
+                .filter(bottomCloth -> bottomCloth.getKey().equals(STR."c_def_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                .findFirst()
+                .get()
+        );
+        player.getCollectedLowerWear().add(
+            materialRegistrar.getBottomClothList().stream()
+                .filter(bottomCloth -> bottomCloth.getKey().equals(STR."c_alt_\{gender.equals(Genders.MALE) ? "m" : "f"}"))
+                .findFirst()
+                .get()
+        );
 
-        player.getCollectedFootwear().add(createShoe("def"));
-        player.getCollectedFootwear().add(createShoe("alt"));
+        player.getCollectedFootwear().add(
+            materialRegistrar.getShoesList().stream()
+                .filter(shoe -> shoe.getKey().equals("s_def_u"))
+                .findFirst()
+                .get()
+        );
+        player.getCollectedFootwear().add(
+            materialRegistrar.getShoesList().stream()
+                .filter(shoe -> shoe.getKey().equals("s_alt_u"))
+                .findFirst()
+                .get()
+        );
 
         // Set other attributes as needed
         player.setIrisColor(new Color(0, 0, 0, 100));
@@ -232,29 +371,16 @@ public class XmlConfigManager {
         player.setAdornments(new ArrayList<>());
         player.setCollectedAdornments(new ArrayList<>());
 
-        MaterialRegistrar materialRegistrar = new MaterialRegistrar();
-
-        materialRegistrar.setAccessoryList(new ArrayList<>());
-        materialRegistrar.setBottomClothList(new ArrayList<>());
-        materialRegistrar.setShoesList(new ArrayList<>());
-        materialRegistrar.setTopClothList(new ArrayList<>());
-
-        materialRegistrar.getTopClothList().add(createTopCloth(gender, "def"));
-        materialRegistrar.getTopClothList().add(createTopCloth(gender, "alt"));
-
-        materialRegistrar.getBottomClothList().add(createBottomCloth(gender, "def"));
-        materialRegistrar.getBottomClothList().add(createBottomCloth(gender, "alt"));
-
-        materialRegistrar.getShoesList().add(createShoes("def"));
-        materialRegistrar.getShoesList().add(createShoes("def"));
-
         FamilyNames familyName = EnumRandomizer.getRandomEnum(FamilyNames.class);
 
         FamilyRegistrar familyRegistrar = getOrCreateFamilyRegistrar();
-        Family family = getFamily(familyRegistrar, familyName);
+        CompletableFuture<Family> familyFuture = getFamilyAsync(familyRegistrar, familyName);
+
+        // Wait for the asynchronous task to complete and retrieve the family object
+        Family family = familyFuture.get();  // This blocks until the family is retrieved
 
         MinimalUser mUser = new MinimalUser(user);
-        family.getFamilyMembers().add(mUser);
+        family.addFamilyMember(mUser);
 
         familyRegistrar.getFamilies().add(family);
 
@@ -262,6 +388,7 @@ public class XmlConfigManager {
         playerFamily.setFamilyPosition(family.getFamilyMembers().size());
         player.setFamily(playerFamily);
 
+        // Save to XML
         XmlConfigManager manager = new XmlConfigManager(Family.class, MaterialRegistrar.class, FamilyRegistrar.class, Player.class, User.class, PlayerRegistrar.class, TopCloth.class, BottomCloth.class, Shoes.class, Shoe.class, Accessory.class);
         manager.saveToXML(familyRegistrar, "./ServerData/XML/registeredFamilies.xml");
         manager.saveToXML(materialRegistrar, "./ServerData/XML/registeredMaterials.xml");
@@ -269,26 +396,66 @@ public class XmlConfigManager {
         return player;
     }
 
+
     private static Family getFamily(FamilyRegistrar familyRegistrar, FamilyNames familyName) {
         List<Family> families = familyRegistrar.getFamilies();
-        Family family = null;
-        Wealth familyWealth = Wealth.getRandomWealthByWeight();
 
-        boolean isContainedFamily = false;
-        for (Family family2 : families){
-            if (family2.getFamilyNames().equals(familyName)){
-                isContainedFamily = true;
-                family = family2;
+        // Check for special family names
+        boolean isSpecial = familyName.equals(FamilyNames.POPOOLA) ||
+            familyName.equals(FamilyNames.OSITUNGA) ||
+            familyName.equals(FamilyNames.ADEDO) ||
+            familyName.equals(FamilyNames.ADEJOH);
+
+        if (families == null) {
+            families = new ArrayList<>();
+            familyRegistrar.setFamilies(families); // Initialize families list if null
+        }
+
+        // Check if the family already exists
+        Family family = null;
+        for (Family existingFamily : families) {
+            if (existingFamily.getFamilyName().equals(familyName.getFamilyName())) {
+                family = existingFamily;
                 break;
             }
         }
-        if (!isContainedFamily){
+
+        // Create a new family if it doesn't exist
+        if (family == null) {
             family = new Family(familyName);
-            family.setFamilyMembers(new ArrayList<>());
-            family.setFamilySize();
-            family.setFamilyWealth(familyWealth);
+            family.setFamilyMembers(new ArrayList<>()); // Initialize family members list
+
+            // Set family wealth and size
+            if (isSpecial) {
+                family.setFamilyWealth(Wealth.GOD_GIVEN_WEALTH);
+                family.setFamilySize(100);
+            } else {
+                family.setFamilyWealth(Wealth.getRandomWealthByWeight());
+                family.setFamilySize(FamilyNames.SizeRandomizer()); // Set a default size for non-special families
+            }
+
+            families.add(family); // Add the new family to the registrar
         }
+
         return family;
+
+    }
+    public static CompletableFuture<Family> getFamilyAsync(FamilyRegistrar familyRegistrar, FamilyNames familyName) {
+        return CompletableFuture.supplyAsync(() -> getFamily(familyRegistrar, familyName))
+            .thenApplyAsync(family -> {
+                boolean isSpecial = familyName.equals(FamilyNames.POPOOLA) ||
+                    familyName.equals(FamilyNames.OSITUNGA) ||
+                    familyName.equals(FamilyNames.ADEDO) ||
+                    familyName.equals(FamilyNames.ADEJOH);
+
+                if (isSpecial) {
+                    // Make sure these values are set before proceeding
+                    family.setFamilyWealth(Wealth.GOD_GIVEN_WEALTH);
+                    family.setFamilySize(100);
+                }
+
+                return family;
+            });
     }
 
     // Helper methods remain the same as before
@@ -331,7 +498,6 @@ public class XmlConfigManager {
         return new Shoes(shoe);
     }
 
-
     private TopCloth createTopCloth(Genders gender, String variant) {
         String g;
         if (gender == Genders.MALE){
@@ -342,7 +508,7 @@ public class XmlConfigManager {
 
         Material material = variant.equals("def") ? Material.POLYESTER : Material.WOOL;
         Rarity rarity = Rarity.COMMON;
-        String key = variant.equals("def") ? "s_def_"+g : "s_alt_"+g;
+        String key = variant.equals("def") ? "t_def_"+g : "t_alt_"+g;
 
         return new TopCloth(rarity, material, key);
     }
@@ -356,7 +522,7 @@ public class XmlConfigManager {
 
         Material material = variant.equals("def") ? Material.CHINOS : Material.JEANS;
         Rarity rarity = Rarity.COMMON;
-        String key = variant.equals("def") ? "s_def_"+g : "s_alt_"+g;
+        String key = variant.equals("def") ? "c_def_"+g : "c_alt_"+g;
 
         return new BottomCloth(rarity, material, key);
     }

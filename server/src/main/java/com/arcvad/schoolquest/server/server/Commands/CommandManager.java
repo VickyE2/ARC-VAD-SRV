@@ -12,7 +12,7 @@ import static picocli.CommandLine.usage;
     name = "",
     description = "Server commands",
     mixinStandardHelpOptions = true,
-    subcommands = {ConfigCommand.class, HelpCommand.class}
+    subcommands = {ConfigCommand.class, HelpCommand.class, ConvertCommand.class}
 )
 public class CommandManager implements Callable<Integer> {
 

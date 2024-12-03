@@ -34,6 +34,7 @@ public enum Wealth {
         for (Wealth wealth : Wealth.values()) {
             cumulativeWeight += wealth.getChance();
             if (randomValue < cumulativeWeight) {
+                System.out.println(STR."Resulting weight \{wealth}");
                 return wealth;
             }
         }

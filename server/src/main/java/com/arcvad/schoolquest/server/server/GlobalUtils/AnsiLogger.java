@@ -207,6 +207,13 @@ public class AnsiLogger {
     }
 
     /**
+     * Logs a message with "SUCCESS" level.
+     */
+    public void success(String tag, String message) {
+        log(tag, "SUCCESS", StringTemplate.STR."green[\{message}]");
+    }
+
+    /**
      * Logs a message with "SEVERE" level.
      */
     public void severe(String tag, String message) {

@@ -6,6 +6,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
+import java.util.Objects;
+
 public class Accessory extends BaseTemplate {
     @XmlAttribute
     public String accessoryRarity;
@@ -37,5 +39,18 @@ public class Accessory extends BaseTemplate {
     @XmlTransient
     public String getkeyentifyer() {
         return this.accessoryKey;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Accessory that = (Accessory) o;
+        return Objects.equals(accessoryKey, that.accessoryKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accessoryKey);
     }
 }

@@ -2,14 +2,17 @@ package com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Attribute
 
 import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.Accessory.Accessory;
 import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.BottomCloth.BottomCloth;
-import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.Shoe.Shoes;
+import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.Shoe.Shoe;
 import com.arcvad.schoolquest.server.server.DataFormat.JSON.Templates.Wearables.TopCloth.TopCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.JSON.utilities.BaseTemplate;
 import com.arcvad.schoolquest.server.server.GlobalUtils.Mergeable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
 
@@ -19,7 +22,7 @@ public class MaterialRegistrar extends BaseTemplate implements Mergeable<Materia
     @JsonProperty
     private List<TopCloth> topClothList;
     @JsonProperty
-    private List<Shoes> shoesList;
+    private List<Shoe> shoesList;
     @JsonProperty
     private List<Accessory> accessoryList;
 
@@ -33,7 +36,7 @@ public class MaterialRegistrar extends BaseTemplate implements Mergeable<Materia
         this.accessoryList = accessoryList;
     }
 
-    public void setShoesList(List<Shoes> shoesList){
+    public void setShoesList(List<Shoe> shoesList){
         this.shoesList = shoesList;
     }
 
@@ -53,7 +56,7 @@ public class MaterialRegistrar extends BaseTemplate implements Mergeable<Materia
         return this.topClothList;
     }
     @JsonIgnore
-    public List<Shoes> getShoesList(){
+    public List<Shoe> getShoesList(){
         return this.shoesList;
     }
 
@@ -64,43 +67,60 @@ public class MaterialRegistrar extends BaseTemplate implements Mergeable<Materia
             throw new IllegalArgumentException("Cannot merge with null MaterialRegistrar object");
         }
 
-        // Merging bottomClothList
+        // Merge bottomClothList
         if (other.bottomClothList != null) {
             if (this.bottomClothList == null) {
-                this.bottomClothList = other.bottomClothList;
+                this.bottomClothList = new ArrayList<>(other.bottomClothList);
             } else {
-                this.bottomClothList.addAll(other.bottomClothList);
+                mergeUnique(this.bottomClothList, other.bottomClothList);
             }
         }
 
-        // Merging topClothList
+        // Merge topClothList
         if (other.topClothList != null) {
             if (this.topClothList == null) {
-                this.topClothList = other.topClothList;
+                this.topClothList = new ArrayList<>(other.topClothList);
             } else {
-                this.topClothList.addAll(other.topClothList);
+                mergeUnique(this.topClothList, other.topClothList);
             }
         }
 
-        // Merging shoesList
+        // Merge shoesList
         if (other.shoesList != null) {
             if (this.shoesList == null) {
-                this.shoesList = other.shoesList;
+                this.shoesList = new ArrayList<>(other.shoesList);
             } else {
-                this.shoesList.addAll(other.shoesList);
+                mergeUnique(this.shoesList, other.shoesList);
             }
         }
 
-        // Merging accessoryList
+        // Merge accessoryList
         if (other.accessoryList != null) {
             if (this.accessoryList == null) {
-                this.accessoryList = other.accessoryList;
+                this.accessoryList = new ArrayList<>(other.accessoryList);
             } else {
-                this.accessoryList.addAll(other.accessoryList);
+                mergeUnique(this.accessoryList, other.accessoryList);
             }
         }
 
         // Log the merge action
         logger.info("ARC-MERGE", "green[Merged MaterialRegistrar data successfully]");
+    }
+
+    /**
+     * Merges sourceList into targetList, ensuring only unique elements are added.
+     *
+     * @param targetList The list to merge into.
+     * @param sourceList The list to merge from.
+     * @param <T>        The type of elements in the list.
+     */
+    private <T> void mergeUnique(List<T> targetList, List<T> sourceList) {
+        Set<T> uniqueSet = new HashSet<>(targetList); // Use a set to track unique items
+        for (T item : sourceList) {
+            if (!uniqueSet.contains(item)) {
+                targetList.add(item); // Add only if not already present
+                uniqueSet.add(item);
+            }
+        }
     }
 }

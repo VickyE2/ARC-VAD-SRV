@@ -35,4 +35,16 @@ public class MinimalUser extends BaseTemplate {
     public String getUsername(){
         return username;
     }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

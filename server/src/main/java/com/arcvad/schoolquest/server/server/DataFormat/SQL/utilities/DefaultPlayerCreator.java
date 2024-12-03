@@ -1,9 +1,10 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities;
 
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family;
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.PlayerFamily;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.FamilyRegistrar;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.PlayerRegistrar;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.User;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Shoe;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.TopCloth;
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultPlayerCreator {
-    public static Player createDefaultUser(HibernateDatabaseManager databaseManager) {
+    private PlayerRegistrar playerRegistrar;
+    public static Player createDefaultUser(HibernateDatabaseManager databaseManager, PlayerRegistrar playerRegistrar) {
+
         Player player = new Player();
         FamilyRegistrar registrar = new FamilyRegistrar();
 
@@ -40,15 +43,11 @@ public class DefaultPlayerCreator {
 
         databaseManager.saveEntity(family);
 
-        PlayerFamily playerFamily = new PlayerFamily(family);
-        playerFamily.setFamilyPosition(family.getFamilyMembers().size());
-
         TopCloth topCloth = createDefaultTopCloth(Genders.MALE, "def");
         BottomCloth bottomCloth = createDefaultBottomCloth(Genders.MALE, "def");
         Shoe shoe = createDefaultShoe("def");
 
-        player.setId("test-user");
-        player.setFamily(family);
+        player.setUser(new User());
         player.setIrisHue(new Color(0, 0, 0, 100));
         player.setSkinHue(new Color(0, 0, 0, 100));
         player.setHairHue(new Color(0, 0, 0, 100));
@@ -74,7 +73,6 @@ public class DefaultPlayerCreator {
         player.setCurrentTopCloth(topCloth);
         player.setCurrentShoe(shoe);
 
-        family.getFamilyMembers().add(player);
         return player;
     }
 

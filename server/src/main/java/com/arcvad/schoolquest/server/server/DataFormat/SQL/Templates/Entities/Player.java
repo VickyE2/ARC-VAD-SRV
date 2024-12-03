@@ -1,6 +1,5 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities;
 
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Shoe;
@@ -11,15 +10,11 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @Entity
 @Table(name = "players")
 public class Player {
-    private static final Logger log = Logger.getLogger(Player.class.getName());
-
-    @Id
-    private String id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "eyelash_type")
@@ -65,77 +60,68 @@ public class Player {
     })
     private Color skinHue;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "current_top_cloth_id")
+    @ManyToOne
+    @JoinColumn(name = "current_top_cloth_id", nullable = true)
     private TopCloth currentTopCloth;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "current_bottom_cloth_id")
+    @ManyToOne
+    @JoinColumn(name = "current_bottom_cloth_id", nullable = true)
     private BottomCloth currentBottomCloth;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "current_shoe_id")
+    @ManyToOne
+    @JoinColumn(name = "current_shoe_id", nullable = true)
     private Shoe currentShoe;
 
-    /*
-    @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "player_family", column = @Column(name = "player_family_field"))
-    })
-    private PlayerFamily family;
-     */
+    @Id
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "family_id", nullable = false) // Specify the foreign key column
-    private Family family;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user", nullable = false) // Specify the foreign key column
+    private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
         name = "player_accessories",
         joinColumns = @JoinColumn(name = "player_id"),
-        inverseJoinColumns = @JoinColumn(name = "accessory_id")
+        inverseJoinColumns = @JoinColumn(name = "accessory_key")
     )
     private List<Accessory> currentAccessories = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
         name = "player_collected_top_clothes",
         joinColumns = @JoinColumn(name = "player_id"),
-        inverseJoinColumns = @JoinColumn(name = "top_cloth_id")
+        inverseJoinColumns = @JoinColumn(name = "top_cloth_key")
     )
     private List<TopCloth> collectedTopCloth = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
         name = "player_collected_bottom_clothes",
         joinColumns = @JoinColumn(name = "player_id"),
-        inverseJoinColumns = @JoinColumn(name = "bottom_cloth_id")
+        inverseJoinColumns = @JoinColumn(name = "bottom_cloth_key")
     )
     private List<BottomCloth> collectedBottomCloth = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
         name = "player_collected_shoes",
         joinColumns = @JoinColumn(name = "player_id"),
-        inverseJoinColumns = @JoinColumn(name = "shoe_id")
+        inverseJoinColumns = @JoinColumn(name = "shoe_key")
     )
     private List<Shoe> collectedShoes = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
         name = "player_collected_accessories",
         joinColumns = @JoinColumn(name = "player_id"),
-        inverseJoinColumns = @JoinColumn(name = "accessory_id")
+        inverseJoinColumns = @JoinColumn(name = "accessory_key")
     )
     private List<Accessory> collectedAccessories = new ArrayList<>();
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
+
 
     public Styles.EyelashStyles getEyeLashType() {
         return eyeLashType;
@@ -209,12 +195,12 @@ public class Player {
         this.currentShoe = currentShoe;
     }
 
-    public Family getFamily() {
-        return family;
+    public User getUser() {
+        return user;
     }
 
-    public void setFamily(Family family) {
-        this.family = family;
+    public void setUser(User family) {
+        this.user = family;
     }
 
     public List<Accessory> getCurrentAccessories() {
@@ -257,5 +243,12 @@ public class Player {
         this.collectedAccessories = collectedAccessories;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
 

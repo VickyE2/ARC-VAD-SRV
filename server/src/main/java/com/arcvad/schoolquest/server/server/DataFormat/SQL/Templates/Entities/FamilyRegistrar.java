@@ -14,13 +14,17 @@ public class FamilyRegistrar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "family_registrar_id")
+    @OneToMany(mappedBy = "familyRegistrar", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Family> families = new ArrayList<>();
+
 
     // Getters and Setters
     public List<Family> getFamilies() {
         return families;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setFamilies(List<Family> families) {

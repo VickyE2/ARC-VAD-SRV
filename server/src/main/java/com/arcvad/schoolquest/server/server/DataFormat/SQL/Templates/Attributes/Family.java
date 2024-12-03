@@ -1,19 +1,17 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes;
 
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.FamilyRegistrar;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.User;
 import com.arcvad.schoolquest.server.server.Playerutils.FamilyNames;
 import com.arcvad.schoolquest.server.server.Playerutils.Wealth;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "families")
 public class Family {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "family_name", nullable = false, unique = true)
     private String familyName;
@@ -27,17 +25,21 @@ public class Family {
     private int familySize;
 
     @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Player> familyMembers;
+    private List<User> familyMembers = new ArrayList<>();
 
-    private FamilyNames familyNames;
+    @Id
+    private FamilyNames id;
 
-    private FamilyNames family;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // Added cascade type
+    @JoinColumn(name = "family_registrar_id", nullable = true)
+    private FamilyRegistrar familyRegistrar;
 
     public Family(FamilyNames family) {
         this.familyName = family.getFamilyName();
-        this.family = family;
-        this.familyNames = family;
+        this.id = family;
     }
+
+    public Family() {}
 
     // Getters and Setters
     public String getFamilyName() {
@@ -49,11 +51,11 @@ public class Family {
     }
 
     public FamilyNames getFamilyNames() {
-        return familyNames;
+        return id;
     }
 
     public void setFamilyNames(FamilyNames familyName) {
-        this.familyNames = familyName;
+        this.id = familyName;
     }
 
     public Wealth getFamilyWealth() {
@@ -69,14 +71,26 @@ public class Family {
     }
 
     public void setFamilySize() {
-        this.familySize = family.getFamilySize();
+        this.familySize = id.getFamilySize();
     }
 
-    public List<Player> getFamilyMembers() {
+    public void setFamilySize(int size) {
+        this.familySize = size;
+    }
+
+    public List<User> getFamilyMembers() {
         return familyMembers;
     }
 
-    public void setFamilyMembers(List<Player> familyMembers) {
+    public void setFamilyMembers(List<User> familyMembers) {
         this.familyMembers = familyMembers;
+    }
+
+    public FamilyRegistrar getFamilyRegistrar() {
+        return familyRegistrar;
+    }
+
+    public void setFamilyRegistrar(FamilyRegistrar familyRegistrar) {
+        this.familyRegistrar = familyRegistrar;
     }
 }

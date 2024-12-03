@@ -17,7 +17,7 @@ public enum FamilyNames {
     ADEDAYO("Adedayo", SizeRandomizer()),
     ADEKUNLE("Adekunle", SizeRandomizer()),
     POPOOLA("Popoola", SizeRandomizer()),
-    OSITUNGA("Osituga", SizeRandomizer()),
+    OSITUNGA("Ositunga", SizeRandomizer()),
     ADEJOH("Adejoh", SizeRandomizer()),
     ADEDO("Adedo", SizeRandomizer()),
     ADEMOLA("Ademola", SizeRandomizer()),
@@ -33,24 +33,23 @@ public enum FamilyNames {
     FINCH("Finch", SizeRandomizer());
 
 
-
-
     private final String familyName;
     private final int familySize;
-    FamilyNames(String familyName, int familySize){
+
+    FamilyNames(String familyName, int familySize) {
         this.familyName = familyName;
         this.familySize = familySize;
     }
 
-    public String getFamilyName(){
+    public String getFamilyName() {
         return familyName;
     }
 
-    public int getFamilySize(){
+    public int getFamilySize() {
         return familySize;
     }
 
-    public static int SizeRandomizer(){
+    public static int SizeRandomizer() {
         List<Range> ranges = new ArrayList<>();
         ranges.add(new Range(50, 200, 50, 20));
         ranges.add(new Range(200, 500, 30, 50));
@@ -58,5 +57,6 @@ public enum FamilyNames {
         ranges.add(new Range(800, 1000, 5, 20));
 
         return RangeWeightedRandomInt.getWeightedRandomInt(ranges);
+
     }
 }

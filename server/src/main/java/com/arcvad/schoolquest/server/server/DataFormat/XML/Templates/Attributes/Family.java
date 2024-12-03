@@ -10,7 +10,10 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlTransient;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.arcvad.schoolquest.server.server.GlobalUtils.GlobalUtilities.logger;
 
@@ -46,6 +49,9 @@ public class Family extends BaseTemplate implements Mergeable<Family> {
 
     @XmlTransient
     public List<MinimalUser> getFamilyMembers() {
+        if (familyMembers == null) {
+            familyMembers = new ArrayList<>();
+        }
         return familyMembers;
     }
 
@@ -66,15 +72,35 @@ public class Family extends BaseTemplate implements Mergeable<Family> {
     public void setFamilyName() {
         this.familyName = family.getFamilyName();
     }
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
     public void setFamilyWealth(Wealth familyWealth) {
         this.familyWealth = familyWealth;
     }
     public void setFamilySize() {
         this.familySize = family.getFamilySize();
     }
+    public void setFamilySize(int size) {
+        this.familySize = size;
+    }
     public void setFamilyMembers(List<MinimalUser> familyMembers) {
         this.familyMembers = familyMembers;
     }
+
+    public void addFamilyMember(MinimalUser member) {
+        if (familyMembers == null) {
+            familyMembers = new ArrayList<>(); // Initialize family members list if null
+        }
+
+        // Prevent duplicate members
+        boolean isMemberAlreadyPresent = familyMembers.stream()
+            .anyMatch(existingMember -> existingMember.getUsername().equals(member.getUsername()));
+        if (!isMemberAlreadyPresent) {
+            familyMembers.add(member);
+        }
+    }
+
 
     @Override
     public void mergeWith(Family other) {
@@ -88,4 +114,24 @@ public class Family extends BaseTemplate implements Mergeable<Family> {
             }
         }
     }
+
+    public void removeDuplicateFamilyMembers() {
+        if (familyMembers == null) {
+            return; // No members to process
+        }
+
+        // Use a HashSet to track unique usernames
+        Set<String> seenUsernames = new HashSet<>();
+        List<MinimalUser> uniqueMembers = new ArrayList<>();
+
+        for (MinimalUser member : familyMembers) {
+            if (member != null && seenUsernames.add(member.getUsername())) {
+                uniqueMembers.add(member); // Add only if the username is unique
+            }
+        }
+
+        // Replace the old list with the filtered list
+        this.familyMembers = uniqueMembers;
+    }
+
 }

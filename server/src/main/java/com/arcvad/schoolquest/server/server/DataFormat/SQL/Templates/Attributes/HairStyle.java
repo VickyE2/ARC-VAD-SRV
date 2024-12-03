@@ -15,7 +15,7 @@ public class HairStyle {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "eyelash_style", nullable = false)
+    @Column(name = "hair_style", nullable = false)
     private Styles.HairStyles eyelashStyles;
 
     @Enumerated(EnumType.STRING)
@@ -23,10 +23,10 @@ public class HairStyle {
     private Genders gender;
 
     @ElementCollection
-    @CollectionTable(name = "eyelash_styles_map", joinColumns = @JoinColumn(name = "eyelash_style_id"))
+    @CollectionTable(name = "hair_styles_map", joinColumns = @JoinColumn(name = "hair_style_id"))
     @MapKeyColumn(name = "style_name")
     @Column(name = "gender")
-    private Map<Styles.EyelashStyles, Genders> eyelashStyle;
+    private Map<Styles.HairStyles, Genders> eyelashStyle;
 
     // Getters and Setters
     public Styles.HairStyles getEyelashStyles() {
@@ -45,11 +45,11 @@ public class HairStyle {
         this.gender = gender;
     }
 
-    public Map<Styles.EyelashStyles, Genders> getEyelashStyle() {
+    public Map<Styles.HairStyles, Genders> getEyelashStyle() {
         return eyelashStyle;
     }
 
-    public void setEyelashStyle(Map<Styles.EyelashStyles, Genders> eyelashStyle) {
+    public void setEyelashStyle(Map<Styles.HairStyles, Genders> eyelashStyle) {
         this.eyelashStyle = eyelashStyle;
     }
 }

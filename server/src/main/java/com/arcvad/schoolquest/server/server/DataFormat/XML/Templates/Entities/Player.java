@@ -177,6 +177,8 @@ public class Player extends BaseTemplate implements Mergeable<Player> {
         this.collectedAccessories = collectedForthLayerAccessory;
     }
 
+    public Player () {}
+
     @XmlTransient
     public PlayerFamily getFamily() {
         return family;
@@ -220,9 +222,6 @@ public class Player extends BaseTemplate implements Mergeable<Player> {
         }
         if (otherAvatar.currentShoe != null && !otherAvatar.currentShoe.equals(this.currentShoe)) {
             this.currentShoe = otherAvatar.currentShoe;
-        }
-        if (otherAvatar.family != null && !otherAvatar.family.equals(this.family)) {
-            this.family = otherAvatar.family;
         }
 
         // Merge lists (only add new elements if they aren't already in the list)

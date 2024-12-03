@@ -1,7 +1,7 @@
 package com.arcvad.schoolquest.server.server.DataFormat.SQL.utilities;
 
-import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Attributes.Family;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.Player;
+import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Entities.User;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Accessory;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.BottomCloth;
 import com.arcvad.schoolquest.server.server.DataFormat.SQL.Templates.Wearables.Shoe;
@@ -23,7 +23,7 @@ public class PlayerBuilder {
     private TopCloth currentTopCloth;
     private BottomCloth currentBottomCloth;
     private Shoe currentShoe;
-    private Family family;
+    private User user;
     private List<Accessory> currentAccessories = new ArrayList<>();
     private List<TopCloth> collectedTopCloth = new ArrayList<>();
     private List<BottomCloth> collectedBottomCloth = new ArrayList<>();
@@ -80,11 +80,6 @@ public class PlayerBuilder {
         return this;
     }
 
-    public PlayerBuilder setFamily(Family family) {
-        this.family = family;
-        return this;
-    }
-
     public PlayerBuilder setCurrentAccessories(List<Accessory> currentAccessories) {
         this.currentAccessories = currentAccessories;
         return this;
@@ -135,6 +130,11 @@ public class PlayerBuilder {
         return this;
     }
 
+    public PlayerBuilder setUser(User user) {
+        this.user = user;
+        return this;
+    }
+
     public Player build() {
         Player player = new Player();
         player.setId(this.id);
@@ -147,12 +147,12 @@ public class PlayerBuilder {
         player.setCurrentTopCloth(this.currentTopCloth);
         player.setCurrentBottomCloth(this.currentBottomCloth);
         player.setCurrentShoe(this.currentShoe);
-        player.setFamily(this.family);
         player.setCurrentAccessories(this.currentAccessories);
         player.setCollectedTopCloth(this.collectedTopCloth);
         player.setCollectedBottomCloth(this.collectedBottomCloth);
         player.setCollectedShoes(this.collectedShoes);
         player.setCollectedAccessories(this.collectedAccessories);
+        player.setUser(this.user);
         return player;
     }
 }

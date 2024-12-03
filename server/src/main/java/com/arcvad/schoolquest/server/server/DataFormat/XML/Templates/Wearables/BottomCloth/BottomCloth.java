@@ -6,6 +6,8 @@ import com.arcvad.schoolquest.server.server.Playerutils.Rarity;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 
+import java.util.Objects;
+
 public class BottomCloth extends BaseTemplate {
     @XmlTransient
     public Rarity rarity;
@@ -36,4 +38,17 @@ public class BottomCloth extends BaseTemplate {
     @XmlAttribute
     public String getKey() { return key; }
     public void setKey(String key) { this.key = key; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BottomCloth that = (BottomCloth) o;
+        return Objects.equals(key, that.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
 }
